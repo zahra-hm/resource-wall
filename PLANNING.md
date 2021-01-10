@@ -67,12 +67,9 @@ Categories:
 - Sports
 - Education
 - Business
-- Books
+- Food
 - Travel
-- Home Renovation
-- Music
-- Gaming
-- News
+
 
     User Stories Templates: 
     User should… in the title
