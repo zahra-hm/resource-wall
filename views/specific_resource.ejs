@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Specific Resource Page</title>
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+</head>
+
+<body>
+  <%- include('partials/_header') %>
+  <a href="/resources"></a>
+  <div class="specific-resource" style="border-style: dotted">
+    <h2 class="title-link">PLACEHODER FOR title/link</h2>
+    <div class="avg-rating">Rating: #</div>
+    <div class="specific-resource-desc">PLACEHOLDER FOR description PLACEHOLDER FOR description PLACEHOLDER FOR
+      description </div>
+    <div class="submit-rate">
+      <h5>Rate: </h5>
+      <input type="number" name="rate">
+      <button type="submit">Submit rate</button>
+    </div>
+    <h5>Date posted: </h5>
+    <button>
+      <i class="fas fa-heart"></i>
+    </button>
+  </div>
+
+  <div class="new-comment" style="border-style: dotted">
+    <form action="/resources" method="POST">></form>
+    <label>Add new comment:</label>
+    <input class="comment-box" type="text" name="newComment" placeholder="Enter comment...">
+    <button type="submit" class="btn-addComment">Submit</button>
+  </div>
+
+  <!-- Add for loop to display old comments -->
+  <div class="old-comment" style="border-style: dotted">
+    <h4>PLACEHOLDER FOR User name</h4>
+    <h5>PLACEHOLDER FOR Created at: date</h5>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua.
+      Posuere lorem ipsum dolor sit amet. Massa massa ultricies mi quis hendrerit dolor.</p>
+  </div>
+
+</body>
+
+</html>
