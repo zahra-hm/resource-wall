@@ -1,5 +1,13 @@
 DROP TABLE IF EXISTS resources CASCADE;
 
+DROP TABLE IF EXISTS categories CASCADE;
+
+CREATE TABLE categories (
+  id SERIAL PRIMARY KEY NOT NULL,
+  title TEXT NOT NULL,
+  background_image TEXT
+);
+
 CREATE TABLE resources (
   id SERIAL PRIMARY KEY NOT NULL,
   owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
