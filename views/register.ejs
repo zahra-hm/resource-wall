@@ -7,7 +7,7 @@
 
 <body>
     <header>
-      <%- include('partials/_header') %>
+      <%- include('partials/02_header') %>
     </header>
     <div id="login">
       <style type="text/css">
@@ -18,11 +18,15 @@
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="/register" method="post">
+                        <form id="register-form" class="form" action="/register" method="post" style="border: solid black 2px">
                             <h3 class="text-center text-success">Register here!</h3>
                             <div class="form-group">
-                                <label for="username" class="text-success">Email:</label><br>
-                                <input type="email" name="email" id="email" placeholder="Enter your email..." class="form-control">
+                                <label for="username" class="text-success">User-Name</label><br>
+                                <input type="text" name="username" id="user-name" placeholder="Enter a username..." class="form-control">
+                            </div>
+                            <div class="form-group">
+                              <label for="userEmail" class="text-success">Email:</label><br>
+                              <input type="email" name="userEmail" id="user-email" placeholder="Enter your email..." class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-success">Password:</label><br>
@@ -32,9 +36,11 @@
                                 </small>
                             </div>
                             <div class="form-group">
-                              <button type="submit" class="btn btn-success">Submit</button>
+                              <button type="submit" class="btn btn-success">Sign Up!</button>
                             </div>
                         </form>
+
+                        <a class = "redirectButton" href="/resources" style = "border: solid black 2px" >Go Back To Index Page?</a>
                     </div>
                 </div>
             </div>
