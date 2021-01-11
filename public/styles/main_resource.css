@@ -1,0 +1,24 @@
+.main-resource {
+  margin-right: 90px;
+  margin-left: 90px;
+  background-color: rgb(253, 210, 129);
+  padding: 10px;
+  border:  5px solid brown
+}
+
+.footer {
+  padding:10px;
+  border-top: 5px solid rgb(70, 68, 68)
+}
+
+.info {
+padding:10px;
+border-bottom: 5px solid rgb(70, 68, 68)
+}
+
+.search-area {
+  margin-left: 90px;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
