@@ -49,13 +49,58 @@ app.use("/api/widgets", widgetsRoutes(db));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
 app.get("/register", (req, res) => {
   res.render("register");
 });
+
 app.get("/login", (req, res) => {
   res.render("login");
 });
 
+app.post("/register", (req, res) => {
+  // check if user exists (for now use seed data i.e user exists.)
+  // if user exists --> error-message (res.send("user already exists with that email")).
+
+
+  // extract submitted user info from register form submitted.
+  let newUserInfo = req.body;
+
+  /*
+    { username: 'samk_2020',
+      userEmail: 'helloworld@gmail.com',
+      password: 'heloowrold' }
+  */
+
+  // post to database first (postNewUser --> post data into database)
+   //addNewUser(newUserInfo).catch(err => console.log(err));
+
+  // Logic to make sure user is registered, if registed get the session cookies value for user_id.
+
+  // If not registered
+
+  // require logged in user's info, and also all resources (entire table).
+  // const userInfo = getUserData();
+
+
+  // from database require new_user info
+  // from
+  console.log(req.body);
+
+  res.redirect("/resources")
+  /*
+  db.query(`SELECT * FROM users;`)
+    .then(data => {
+      const users = data.rows;
+      res.json({ users });
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  */
+});
 
 app.get("/profile/:user_id", (req, res) => {
   res.render("user_profile");
