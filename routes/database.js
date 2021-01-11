@@ -17,43 +17,53 @@ const db = new Pool(dbParams);
 db.connect();
 
 
-const pool = new Pool( {
+const pool = new Pool({
   user: 'labber',
   password: 'labber',
-  host:'localhost',
-  database:'midterm'
+  host: 'localhost',
+  database: 'midterm'
 });
 
 
 // module.exports = pool;
 
 pool.connect((err) => {
-if (err) return console.log(err); // Shows error if something happened
+  if (err) return console.log(err); // Shows error if something happened
 });
 
 // getUserByID
 
 const getUserByID = function (userID) {
 
-    return pool.query(`
+  return pool.query(`
 
       SELECT * FROM users
       WHERE id = $1`, [userID])
-      .then(res => {
-        if(res.rows[0]) {
+    .then(res => {
+      if (res.rows[0]) {
 
-          console.log("res.rows is, ", res.rows)
-          return res.rows[0];
+        console.log("res.rows is, ", res.rows)
+        return res.rows[0];
 
-        } else {
+      } else {
 
-          console.log("null returned");
-          return null;
-        }
-      })
-      .catch(err => console.log(err));
+        console.log("null returned");
+        return null;
+      }
+    })
+    .catch(err => console.log(err));
 
 }
 
-module.exports = {getUserByID};
-//exports.getUserByID = {getUserByID};
+
+const addNewUser = function (username, email, password2) {
+
+  return pool.query(`
+
+  INSERT INTO users (username, email, password)
+  VALUES ($1, $2, $3)
+  RETURNING *;`, [username, email, password2])
+    .then(res => res.rows[0])
+    .catch(err => console.log(err));
+}
+module.exports = { addNewUser, getUserByID };

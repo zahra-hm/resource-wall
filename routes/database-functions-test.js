@@ -1,5 +1,5 @@
 // require database file
-const {getUserByID} = require('./database');
+const { getUserByID, addNewUser } = require('./database');
 //
 
 
@@ -8,7 +8,7 @@ const {getUserByID} = require('./database');
 
 // Test getUserByID
 // SEED DATA: ____________ ;
-user_id = 1;
+const user_id = 1;
 // callfunction and provide valid seed data.
 getUserByID(user_id).then(res => {
 
@@ -17,4 +17,18 @@ getUserByID(user_id).then(res => {
   console.log(res);
 
 }).catch(err => console.log(err));
+
+
+// Test addNewUser
+const username = 'BeePisuthigomol';
+const email = 'bee@email.com';
+const password = 'password'
+
+addNewUser(username, email, password).then(res => {
+
+  console.log("output from addNewUser Query is: ")
+  console.log(res);
+
+}).catch(err => console.log(err));
+
 
