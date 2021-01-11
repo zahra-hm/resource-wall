@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Home Page</title>
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <%- include('partials/_header') %>
+  </header>
+
+  <div class=my-profile>
+    <h1>Profile Page</h1>
+    <div class="current-profile">
+      <!-- Placeholder for username and profile image, MUST fetch from DB -->
+      <span class='current-username'>Username</span>
+      <img class="profile-image" src="https://icon-library.net/images/generic-user-icon/generic-user-icon-10.jpg">
+    </div>
+
+    <div class="update-profile">
+      <span class="update-username">Username:</span>
+      <input type="text" name="newUsername">
+      <button type="submit">Update</button>
+      <span class="email">Email:</span>
+      <!-- Placeholder for email address, MUST fetch from DB -->
+      <span>email@email.com</span>
+      <span>Password:</span>
+      <!-- Placeholder for password, MUST fetch from DB -->
+      <span>password</span>
+    </div>
+  </div>
+
+</body>
+</html>
