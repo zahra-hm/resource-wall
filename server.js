@@ -50,6 +50,14 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/resources/categories/:category_name", (req, res) => {
+  res.render("specific_category_resource");
+});
+
+app.get("/resources", (req, res) => {
+  res.render("main_resource");
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
