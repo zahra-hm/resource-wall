@@ -50,6 +50,14 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/profile/:user_id", (req, res) => {
+  res.render("user_profile");
+});
+
+app.get("/resources/:resource_id", (req, res) => {
+  res.render("specific_resource");
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
