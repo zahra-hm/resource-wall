@@ -35,7 +35,20 @@ module.exports = (db) => {
       });
   });
 
-  router.get("/profile/:user_id", (req, res) => {
+  router.get("/resources", (req, res) => {
+    db.query(`SELECT * FROM users;`)
+      .then(data => {
+        const users = data.rows;
+        res.json({ users });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+  router.get("/resources/categories/:category_name", (req, res) => {
     db.query(`SELECT * FROM users;`)
       .then(data => {
         const users = data.rows;
@@ -63,3 +76,6 @@ module.exports = (db) => {
 
   return router;
 };
+
+
+
