@@ -1,0 +1,51 @@
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<body>
+    <header>
+      <%- include('partials/_header') %>
+    </header>
+    <div id="login">
+      <style type="text/css">
+        body { background-color: ) !important; }
+      </style>
+
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="register-form" class="form" action="/register" method="post" style="border: solid black 2px">
+                            <h3 class="text-center text-success">ADD RESOURCE BELOW>
+
+                            <div class="form-group">
+                              <label for="resourceTitle" class="text-success">Title:</label><br>
+                              <input type="text" name="resourceTitle" id="new-res-title" placeholder="Enter title..." class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="newResourceURL" class="text-success">URL</label><br>
+                                <input type="text" name="newResourceURL" id="new-res-url" placeholder="Enter URL..." class="form-control">
+
+                            </div>
+                            <div class="form-group">
+                              <label for="newResourceDescription" class="text-success">Description</label><br>
+                              <input type="text" name="newResourceDescription" id="new-res-description" placeholder="Enter description..." class="form-control">
+                            </div>
+
+
+                            <div class="form-group">
+                              <button type="submit" class="btn btn-success">ADD!</button>
+                            </div>
+                        </form>
+
+                        <a class = "redirectButton" href="/resources" style = "border: solid black 2px" >Go Back To Index Page?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+

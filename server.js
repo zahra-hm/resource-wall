@@ -49,6 +49,13 @@ app.use("/api/widgets", widgetsRoutes(db));
 app.get("/", (req, res) => {
   res.render("index");
 });
+app.get("/register", (req, res) => {
+  res.render("register");
+});
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
 
 app.get("/resources/categories/:category_name", (req, res) => {
   res.render("specific_category_resource");
