@@ -116,7 +116,31 @@ const getSpecificResourceByID = function (resourceID) {
 
 }
 
+// getCommentsForSpecificResource
 
-module.exports = { addNewUser, getUserByEmail, getUserByID, getSpecificResourceByID };
+const getCommentsForSpecificResource = function (resource_ID) {
+
+  return pool.query(`
+
+      SELECT * FROM resource_comments
+      WHERE resource_id = $1`, [resource_ID])
+    .then(res => {
+      if (res.rows[0]) {
+
+        // console.log("res.rows is, ", res.rows);
+        return res.rows[0];
+
+      } else {
+
+        console.log("null returned");
+        return null;
+      }
+    })
+    .catch(err => console.log(err));
+
+}
+
+
+module.exports = { addNewUser, getUserByEmail, getUserByID, getSpecificResourceByID, getCommentsForSpecificResource };
 
 
