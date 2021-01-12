@@ -1,35 +1,20 @@
 // function 1.
 
-//
+// load .env data into process.env
+require('dotenv').config();
+
 // Web server config
 const PORT = process.env.PORT || 8080;
 const ENV = process.env.ENV || "development";
-//const express = require("express");
-//const bodyParser = require("body-parser");
-//const sass = require("node-sass-middleware");
-//const app = express();
-//const morgan = require('morgan');
-// CONNECT TO DATABASE
-// PG database client/connection setup
+
 const { Pool } = require('pg');
 const dbParams = require('../lib/db.js');
-const db = new Pool(dbParams);
-db.connect();
 
+// console.log(dbParams);
 
-const pool = new Pool({
-  user: 'labber',
-  password: 'labber',
-  host: 'localhost',
-  database: 'midterm'
-});
+const pool = new Pool(dbParams);
+pool.connect();
 
-
-// module.exports = pool;
-
-pool.connect((err) => {
-  if (err) return console.log(err); // Shows error if something happened
-});
 
 // getUserByID
 
@@ -42,7 +27,7 @@ const getUserByID = function (userID) {
     .then(res => {
       if (res.rows[0]) {
 
-        console.log("res.rows is, ", res.rows)
+        // console.log("res.rows is, ", res.rows);
         return res.rows[0];
 
       } else {
@@ -56,6 +41,24 @@ const getUserByID = function (userID) {
 }
 
 
+// getAllResources
+
+/*const getAllResources = function () {
+
+  return pool.query(`
+
+  SELECT *
+  FROM resources`)
+  .then(res => {
+
+    console.log("res.rows is, ", res.rows);
+    // return res.rows
+  })
+}*/
+
+
+// addNewUser
+
 const addNewUser = function (username, email, password2) {
 
   return pool.query(`
@@ -66,4 +69,7 @@ const addNewUser = function (username, email, password2) {
     .then(res => res.rows[0])
     .catch(err => console.log(err));
 }
+
 module.exports = { addNewUser, getUserByID };
+
+
