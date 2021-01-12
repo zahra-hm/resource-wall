@@ -1,5 +1,5 @@
 // require database file
-const { getUserByID, getUserByEmail, addNewUser, getSpecificResourceByID, getCommentsForSpecificResource } = require('./database');
+const { getUserByID, getUserByEmail, addNewUser, getSpecificResourceByID, getCommentsForSpecificResource, addNewResources} = require('./database');
 //
 
 
@@ -70,6 +70,24 @@ const resourceID2 = 2;
 getCommentsForSpecificResource(resourceID2).then(res => {
 
   console.log("output from getCommentsForSpecificResource Query is: ")
+  console.log(res);
+
+}).catch(err => console.log(err));
+
+// Test addNewResources
+
+// const resourceID2 = 2;
+
+const owner_id = 5;
+const category_id = 2;
+const title = 'The Big Bang!';
+const url = 'https://en.wikipedia.org/wiki/Big_Bang';
+const description = 'The Big Bang theory is a cosmological model of the observable universe from the earliest known periods through its subsequent large-scale evolution';
+const created_at = '2019-04-23 09:09:09';
+
+addNewResources(owner_id, category_id, title, url, description, created_at).then(res => {
+
+  console.log("output from addNewResources Query is: ")
   console.log(res);
 
 }).catch(err => console.log(err));

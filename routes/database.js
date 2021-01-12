@@ -141,6 +141,19 @@ const getCommentsForSpecificResource = function (resource_ID) {
 }
 
 
-module.exports = { addNewUser, getUserByEmail, getUserByID, getSpecificResourceByID, getCommentsForSpecificResource };
+// addNewResources
+
+const addNewResources = function (owner_id, category_id, title, url, description, created_at) {
+
+  return pool.query(`
+
+  INSERT INTO resources (owner_id, category_id, title, url, description, created_at)
+  VALUES ($1, $2, $3, $4, $5, $6)
+  RETURNING *;`, [owner_id, category_id, title, url, description, created_at])
+    .then(res => res.rows[0])
+    .catch(err => console.log(err));
+}
+
+module.exports = { addNewUser, getUserByEmail, getUserByID, getSpecificResourceByID, getCommentsForSpecificResource, addNewResources };
 
 
