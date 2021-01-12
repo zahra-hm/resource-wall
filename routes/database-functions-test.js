@@ -1,5 +1,5 @@
 // require database file
-const { getUserByID, getUserByEmail, addNewUser } = require('./database');
+const { getUserByID, getUserByEmail, addNewUser, getSpecificResourceByID } = require('./database');
 //
 
 
@@ -51,5 +51,14 @@ getUserByEmail(email2).then(res => {
 
 }).catch(err => console.log(err));
 
+// Test getSpecificResourceByID
 
+const resourceID = 5;
+
+getSpecificResourceByID(resourceID).then(res => {
+
+  console.log("output from getSpecificResourceByIDl Query is: ")
+  console.log(res);
+
+}).catch(err => console.log(err));
 
