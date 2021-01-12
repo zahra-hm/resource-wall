@@ -1,5 +1,5 @@
 // require database file
-const { getUserByID, addNewUser, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID , getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue, setIsLikeValue, addNewReviewsIsLike } = require('./database');
+const { getUserByID, addNewUser, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID , getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue, setIsLikeValue, addNewReviewsIsLike, updateUserName } = require('./database');
 //
 
 
@@ -125,6 +125,8 @@ setIsLikeValue(user_id,resource_id, isLikeValue).then(res => {
 */
 
 
+// TEST addNewReviewsIsLike function ///////////////////////////////////////////////
+/*
 let user_id = 11;
 let resource_id = 6;
 let isLikeValue = false;
@@ -135,5 +137,20 @@ addNewReviewsIsLike(user_id,resource_id, isLikeValue).then(res => {
   console.log(res);
 
 }).catch(err => console.log(err));
+*/
 
+// TEST updateUserName function ///////////////////////////////////////////////
 
+/*
+
+let user_id = 11;
+let username = 'jordan';
+
+updateUserName(user_id, username).then(res => {
+
+  console.log("output from updateUserName Query is: ")
+  console.log(res);
+
+}).catch(err => console.log(err));
+
+*/

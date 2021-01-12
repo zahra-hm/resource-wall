@@ -194,5 +194,18 @@ const addNewReviewsIsLike = function (user_ID, resource_ID, isLikeValue ) {
   .catch(err => console.log(err));
 }
 
-module.exports = { addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike};
+
+const updateUserName = function (user_ID, username) {
+
+  return pool.query(`
+    UPDATE users
+    SET username = $2
+    WHERE id = $1
+    RETURNING *;
+    `, [user_ID, username])
+  .then(res => res.rows)
+  .catch(err => console.log(err));
+}
+
+module.exports = { addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName};
 
