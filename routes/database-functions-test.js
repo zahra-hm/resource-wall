@@ -17,61 +17,6 @@ const { getUserByID, addNewUser, getAllResources, getUserResourcesByUserID, getR
 
 }).catch(err => console.log(err));
 
-
-// Test getAllResources
-getAllResources().then(res => {
-
-  console.log("output from getAllResources Query is: ")
-  console.log(res);
-
-}).catch(err => console.log(err));
-
-
-// getUserResourcesByUserID
-getUserResourcesByUserID(user_id).then(res => {
-
-  console.log("output from getUserResourceconst getSpecificCategoryInfo = function (category_id) {
-
-  return pool.query(`
-
-    SELECT * FROM categories
-    WHERE id = $1`, [category_id])
-  .then(res => res.rows)
-  .catch(err => console.log(err));
-}
-
-sByUserID Query is: ")
-  console.log(res);
-
-}).catch(err => console.log(err));
-
-*/
-// getResourceReviewsByUserID
-/*
-getResourceReviewsByUserID(user_id).then(res => {
-
-    console.log("output from getResourceReviewsByUserID Query is: ")
-    console.log(res);
-
-  }).catch(err => console.log(err));
-
-*/
-
-
-
-// // Test addNewUser
-// const username = 'BeePisuthigomol';
-// const email = 'bee@email.com';
-// const password = 'password'
-
-// addNewUser(username, email, password).then(res => {
-
-//   console.log("output from addNewUser Query is: ")
-//   console.log(res);
-
-// }).catch(err => console.log(err));
-
-
 // Test getResourcesByCategory /////////////////////////////////////////
 
 /*
