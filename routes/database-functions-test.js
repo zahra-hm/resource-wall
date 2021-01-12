@@ -51,7 +51,7 @@ getResourceReviewsByOwnerID(user_id).then(res => {
 
   }).catch(err => console.log(err));
 
-*/
+
 
 const resource_id = 4;
 // getResourceReviewsByResourceID
@@ -62,7 +62,7 @@ getResourceReviewsByResourceID(resource_id).then(res => {
 
 }).catch(err => console.log(err));
 
-/*
+
 // Test addNewUser
 const username = 'BeePisuthigomol';
 const email = 'bee@email.com';

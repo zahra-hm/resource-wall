@@ -94,7 +94,6 @@ const getUserResourcesByUserID = function (userID) {
 
 const getResourceReviewsByOwnerID = function (id) {
 
-  // LINE 105: resource_reviews.user_id = resources.owner_id ???
   return pool.query(`
 
     SELECT resources.owner_id,
