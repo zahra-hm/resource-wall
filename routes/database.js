@@ -10,7 +10,7 @@ const ENV = process.env.ENV || "development";
 const { Pool } = require('pg');
 const dbParams = require('../lib/db.js');
 
-// console.log(dbParams);
+// console.log(dbParams);cle
 
 const pool = new Pool(dbParams);
 pool.connect();
@@ -24,6 +24,28 @@ const getUserByID = function (userID) {
 
       SELECT * FROM users
       WHERE id = $1`, [userID])
+    .then(res => {
+      if (res.rows[0]) {
+
+        // console.log("res.rows is, ", res.rows);
+        return res.rows[0];
+
+      } else {
+
+        console.log("null returned");
+        return null;
+      }
+    })
+    .catch(err => console.log(err));
+
+}
+
+const getUserByEmail = function (userEmail) {
+
+  return pool.query(`
+
+      SELECT * FROM users
+      WHERE email = $1`, [userEmail])
     .then(res => {
       if (res.rows[0]) {
 
@@ -70,6 +92,6 @@ const addNewUser = function (username, email, password2) {
     .catch(err => console.log(err));
 }
 
-module.exports = { addNewUser, getUserByID };
+module.exports = { addNewUser, getUserByEmail, getUserByID };
 
 

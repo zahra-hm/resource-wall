@@ -1,5 +1,5 @@
 // require database file
-const { getUserByID, addNewUser } = require('./database');
+const { getUserByID, getUserByEmail, addNewUser } = require('./database');
 //
 
 
@@ -39,5 +39,17 @@ addNewUser(username, email, password).then(res => {
   console.log(res);
 
 }).catch(err => console.log(err));
+
+// Test getUserByEmail
+
+const email2 = 'bellaanthony@gmail.com';
+
+getUserByEmail(email2).then(res => {
+
+  console.log("output from getUserByEmail Query is: ")
+  console.log(res);
+
+}).catch(err => console.log(err));
+
 
 
