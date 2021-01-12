@@ -131,6 +131,21 @@ const addNewUser = function (username, email, password2) {
     .catch(err => console.log(err));
 }
 
-module.exports = { addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID};
+
+// addNewUser
+
+const getResourcesByCategory = function (category_id) {
+
+  return pool.query(`
+
+  SELECT * FROM resources
+  WHERE category_id = $1
+  ORDER BY created_at DESC;`, [category_id])
+    .then(res => res.rows)
+    .catch(err => console.log(err));
+}
+
+
+module.exports = { addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory};
 
 

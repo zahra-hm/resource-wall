@@ -1,5 +1,5 @@
 // require database file
-const { getUserByID, addNewUser, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID } = require('./database');
+const { getUserByID, addNewUser, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID , getResourcesByCategory } = require('./database');
 //
 
 
@@ -8,7 +8,7 @@ const { getUserByID, addNewUser, getAllResources, getUserResourcesByUserID, getR
 
 // // Test getUserByID
 // // SEED DATA: ____________ ;
-const user_id = 3;
+//const user_id = 3;
 // callfunction and provide valid seed data.
 /*getUserByID(user_id).then(res => {
 
@@ -37,6 +37,7 @@ getUserResourcesByUserID(user_id).then(res => {
 
 */
 // getResourceReviewsByUserID
+/*
 getResourceReviewsByUserID(user_id).then(res => {
 
     console.log("output from getResourceReviewsByUserID Query is: ")
@@ -44,7 +45,7 @@ getResourceReviewsByUserID(user_id).then(res => {
 
   }).catch(err => console.log(err));
 
-
+*/
 
 
 
@@ -61,3 +62,12 @@ getResourceReviewsByUserID(user_id).then(res => {
 // }).catch(err => console.log(err));
 
 
+// Test getResourcesByCategory /////////////////////////////////////////
+let category_id = 4;
+
+getResourcesByCategory(category_id).then(res => {
+
+  console.log("output from getResourcesByCategory Query is: ")
+  console.log(res);
+
+}).catch(err => console.log(err));
