@@ -10,7 +10,7 @@ const ENV = process.env.ENV || "development";
 const { Pool } = require('pg');
 const dbParams = require('../lib/db.js');
 
-// console.log(dbParams);
+// console.log(dbParams);cle
 
 const pool = new Pool(dbParams);
 pool.connect();
@@ -60,7 +60,6 @@ const getAllResources = function () {
 
 };
 
-
 // getUserResourcesByUserID
 // Return resources belong to the user (order by newest to oldest)
 
@@ -77,6 +76,28 @@ const getUserResourcesByUserID = function (userID) {
 
         // console.log("res.rows is, ", res.rows);
         return res.rows;
+
+      } else {
+
+        console.log("null returned");
+        return null;
+      }
+    })
+    .catch(err => console.log(err));
+
+}
+
+const getUserByEmail = function (userEmail) {
+
+  return pool.query(`
+
+      SELECT * FROM users
+      WHERE email = $1`, [userEmail])
+    .then(res => {
+      if (res.rows[0]) {
+
+        // console.log("res.rows is, ", res.rows);
+        return res.rows[0];
 
       } else {
 
@@ -142,8 +163,6 @@ const getResourceReviewsByResourceID = function (resource_id) {
 }
 
 
-
-
 // addNewUser
 
 const addNewUser = function (username, email, password) {
@@ -163,7 +182,6 @@ const addNewUser = function (username, email, password) {
 const addNewComment = function (user_id, resource_id, created_at, comment) {
 
   return pool.query(`
-
   INSERT INTO resource_comments (user_id, resource_id, created_at, comment)
   VALUES ($1, $2, $3, $4)
   RETURNING *;`, [user_id, resource_id, created_at, comment])
@@ -172,9 +190,161 @@ const addNewComment = function (user_id, resource_id, created_at, comment) {
 
 }
 
+// getSpecificResourceByID
+
+const getSpecificResourceByID = function (resourceID) {
+
+  return pool.query(`
+
+      SELECT * FROM resources
+      WHERE id = $1`, [resourceID])
+    .then(res => {
+      if (res.rows[0]) {
+
+        // console.log("res.rows is, ", res.rows);
+        return res.rows[0];
+
+      } else {
+
+        console.log("null returned");
+        return null;
+      }
+    })
+    .catch(err => console.log(err));
+
+}
+
+// getCommentsForSpecificResource
+
+const getCommentsForSpecificResource = function (resource_ID) {
+
+  return pool.query(`
+
+  SELECT *
+  FROM resource_comments
+  JOIN users ON resource_comments.user_id = users.id
+  WHERE resource_id = $1`, [resource_ID])
+    .then(res => {
+      if (res.rows[0]) {
+
+        // console.log("res.rows is, ", res.rows);
+        return res.rows;
+
+      } else {
+
+        console.log("null returned");
+        return null;
+      }
+    })
+    .catch(err => console.log(err));
+
+}
+
+
+// addNewResources
+
+const addNewResources = function (owner_id, category_id, title, url, description, created_at) {
+
+  return pool.query(`
+
+  INSERT INTO resources (owner_id, category_id, title, url, description, created_at)
+  VALUES ($1, $2, $3, $4, $5, $6)
+  RETURNING *;`, [owner_id, category_id, title, url, description, created_at])
+    .then(res => res.rows[0])
+    .catch(err => console.log(err));
+}
+
+// addNewReviewIsRating
+
+const addNewReviewIsRating = function (user_id, resource_id, rating) {
+
+  return pool.query(`
+
+  INSERT INTO resource_reviews (user_id, resource_id, rating)
+  VALUES ($1, $2, $3)
+  RETURNING *;`, [user_id, resource_id, rating])
+    .then(res => res.rows[0])
+    .catch(err => console.log(err));
+}
+
+// getResourcesByCategory
+
+const getResourcesByCategory = function (category_id) {
+
+  return pool.query(`
+
+  SELECT * FROM resources
+  WHERE category_id = $1
+  ORDER BY created_at DESC;`, [category_id])
+    .then(res => res.rows)
+    .catch(err => console.log(err));
+}
+
+
+const getSpecificCategoryInfo = function (category_id) {
+
+  return pool.query(`
+
+    SELECT * FROM categories
+    WHERE id = $1`, [category_id])
+  .then(res => res.rows)
+  .catch(err => console.log(err));
+}
+
+const getIsLikeValue = function (user_ID, resource_ID ) {
+
+  return pool.query(`
+
+    SELECT * FROM resource_reviews
+    WHERE user_id = $1 AND resource_id = $2;`, [user_ID, resource_ID])
+  .then(res => res.rows)
+  .catch(err => console.log(err));
+}
+
+
+const setIsLikeValue = function (user_ID, resource_ID, isLikeValue ) {
+
+  return pool.query(`
+
+    UPDATE resource_reviews
+    SET isLike = $3
+    WHERE user_id = $1 AND resource_id = $2
+    RETURNING *;
+    `, [user_ID, resource_ID, isLikeValue])
+  .then(res => res.rows)
+  .catch(err => console.log(err));
+}
+
+
+const addNewReviewsIsLike = function (user_ID, resource_ID, isLikeValue ) {
+
+  return pool.query(`
+
+    INSERT INTO resource_reviews (user_id, resource_id, isLike)
+    VALUES ($1, $2, $3)
+    RETURNING *;
+    `, [user_ID, resource_ID, isLikeValue])
+  .then(res => res.rows)
+  .catch(err => console.log(err));
+}
+
+
+const updateUserName = function (user_ID, username) {
+
+  return pool.query(`
+    UPDATE users
+    SET username = $2
+    WHERE id = $1
+    RETURNING *;
+    `, [user_ID, username])
+  .then(res => res.rows)
+  .catch(err => console.log(err));
+}
+
 
 module.exports = {
-  addNewUser, addNewComment, getUserByID,
-  getAllResources, getUserResourcesByUserID,
-  getResourceReviewsByOwnerID, getResourceReviewsByResourceID
+  getUserByID, getAllResources, getUserResourcesByUserID, getUserByEmail, getResourceReviewsByOwnerID,
+  getResourceReviewsByResourceID, addNewUser, addNewComment, getSpecificResourceByID,
+  getCommentsForSpecificResource, addNewResources, addNewReviewIsRating, getResourcesByCategory,
+  getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName
 };
