@@ -1,4 +1,4 @@
-// Helper Functions
+// Helper Functions required checking with team
 
 const checkEmail = function (email, func) {
 
