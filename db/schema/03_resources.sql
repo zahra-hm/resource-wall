@@ -7,5 +7,5 @@ CREATE TABLE resources (
   title TEXT NOT NULL,
   url TEXT NOT NULL,
   description TEXT NOT NULL,
-  created_at TIMESTAMP NOT NULL
+  created_at TIMESTAMP DEFAULT NOW()
 );
