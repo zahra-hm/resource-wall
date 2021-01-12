@@ -1,12 +1,18 @@
+const db = require()
+
 // Helper Functions required checking with team
 
-const checkEmail = function (email, func) {
+const checkEmail = function (email) {
+  let result = 1;
+  db.getUserByEmail(email).then(res => {
 
-  if (func(email)) {
-    return true;
-  }
-  return false;
-
+    if (res) {
+      result = true;
+    } else {
+      result = false;
+    }
+  })
+  return result;
 }
 
 const checkLoginInfo = function (email, password, func) {

@@ -1,0 +1,47 @@
+// database.js
+
+const { Pool } = require('pg');
+const dbConnection = new Pool({
+  user: 'vagrant',
+  password: '123',
+  host: 'localhost',
+  database: 'lightbnb'
+});
+
+module.exports = dbConnection;
+
+
+
+// usersDatabaseHelper.js
+
+const dbConnection = require('./database');
+
+const getUserWithEmail = function(email) {
+  dbConnection.query(``).then()
+}
+
+const getUserWithID = function(id) {
+  dbConnection.query(``).then()
+}
+
+module.exports = { getUserWithEmail, getUserWithID };
+
+
+
+// userRoutes.js
+
+const userHelpers = require('./usersDatabaseHelper');
+const router = express.Router();
+
+router.get('/', (req, res) => {
+  const user = userHelpers.getUserWithEmail(email)
+})
+
+module.exports = router;
+
+
+
+// server.js
+
+consts userRouter = require('/userRoutes');
+app.use('/users', userRouter);

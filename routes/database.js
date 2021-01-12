@@ -16,30 +16,6 @@ const pool = new Pool(dbParams);
 pool.connect();
 
 
-// getUserByID
-
-const getUserByID = function (userID) {
-
-  return pool.query(`
-
-    SELECT * FROM users
-    WHERE id = $1;`, [userID])
-    .then(res => {
-      if (res.rows[0]) {
-
-        // console.log("res.rows is, ", res.rows);
-        return res.rows[0];
-
-      } else {
-
-        console.log("null returned");
-        return null;
-      }
-    })
-    .catch(err => console.log(err));
-
-}
-
 
 // getAllResources
 // Return all resources info order by newest to oldest
@@ -342,9 +318,12 @@ const updateUserName = function (user_ID, username) {
 }
 
 
-module.exports = {
-  getUserByID, getAllResources, getUserResourcesByUserID, getUserByEmail, getResourceReviewsByOwnerID,
-  getResourceReviewsByResourceID, addNewUser, addNewComment, getSpecificResourceByID,
-  getCommentsForSpecificResource, addNewResources, addNewReviewIsRating, getResourcesByCategory,
-  getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName
-};
+// module.exports = {
+//   getUserByID, getAllResources, getUserResourcesByUserID, getUserByEmail, getResourceReviewsByOwnerID,
+//   getResourceReviewsByResourceID, addNewUser, addNewComment, getSpecificResourceByID,
+//   getCommentsForSpecificResource, addNewResources, addNewReviewIsRating, getResourcesByCategory,
+//   getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName
+// };
+
+
+module.exports = pool;
