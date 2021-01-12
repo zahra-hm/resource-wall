@@ -182,5 +182,17 @@ const setIsLikeValue = function (user_ID, resource_ID, isLikeValue ) {
 }
 
 
-module.exports = { addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue};
+const addNewReviewsIsLike = function (user_ID, resource_ID, isLikeValue ) {
+
+  return pool.query(`
+
+    INSERT INTO resource_reviews (user_id, resource_id, isLike)
+    VALUES ($1, $2, $3)
+    RETURNING *;
+    `, [user_ID, resource_ID, isLikeValue])
+  .then(res => res.rows)
+  .catch(err => console.log(err));
+}
+
+module.exports = { addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike};
 

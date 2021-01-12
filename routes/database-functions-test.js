@@ -1,5 +1,5 @@
 // require database file
-const { getUserByID, addNewUser, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID , getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue, setIsLikeValue } = require('./database');
+const { getUserByID, addNewUser, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID , getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue, setIsLikeValue, addNewReviewsIsLike } = require('./database');
 //
 
 
@@ -111,7 +111,7 @@ getIsLikeValue(user_id,resource_id).then(res => {
 */
 
 // TEST setIsLikeValue function ///////////////////////////////////////////////
-
+/*
 let user_id = 9;
 let resource_id = 5;
 let isLikeValue = true;
@@ -122,3 +122,18 @@ setIsLikeValue(user_id,resource_id, isLikeValue).then(res => {
   console.log(res);
 
 }).catch(err => console.log(err));
+*/
+
+
+let user_id = 11;
+let resource_id = 6;
+let isLikeValue = false;
+
+addNewReviewsIsLike(user_id,resource_id, isLikeValue).then(res => {
+
+  console.log("output from addNewReviewsIsLike Query is: ")
+  console.log(res);
+
+}).catch(err => console.log(err));
+
+
