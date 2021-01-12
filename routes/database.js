@@ -128,7 +128,7 @@ const getCommentsForSpecificResource = function (resource_ID) {
       if (res.rows[0]) {
 
         // console.log("res.rows is, ", res.rows);
-        return res.rows[0];
+        return res.rows;
 
       } else {
 
