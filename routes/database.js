@@ -23,7 +23,7 @@ const getUserByID = function (userID) {
   return pool.query(`
 
       SELECT * FROM users
-      WHERE id = $1`, [userID])
+      WHERE id = $1;`, [userID])
     .then(res => {
       if (res.rows[0]) {
 
@@ -42,19 +42,80 @@ const getUserByID = function (userID) {
 
 
 // getAllResources
+// Return all resources info order by newest to oldest
 
-/*const getAllResources = function () {
+const getAllResources = function () {
 
   return pool.query(`
 
   SELECT *
-  FROM resources`)
-  .then(res => {
+  FROM resources
+  ORDER BY created_at DESC;`)
+    .then(res => {
 
-    console.log("res.rows is, ", res.rows);
-    // return res.rows
-  })
-}*/
+      // console.log("res.rows is, ", res.rows);
+      return res.rows;
+    })
+    .catch(err => console.log(err));
+
+};
+
+
+// getUserResourcesByUserID
+// Return resources belong to the user (order by newest to oldest)
+
+const getUserResourcesByUserID = function (userID) {
+
+  return pool.query(`
+
+      SELECT *
+      FROM resources
+      WHERE owner_id = $1
+      ORDER BY created_at DESC;`, [userID])
+    .then(res => {
+      if (res.rows[0]) {
+
+        // console.log("res.rows is, ", res.rows);
+        return res.rows;
+
+      } else {
+
+        console.log("null returned");
+        return null;
+      }
+    })
+    .catch(err => console.log(err));
+
+}
+
+
+// getResourceReviewsByUserID
+// Return resources belong to the user and filtered by isLike = true (order by newest to oldest)
+
+const getResourceReviewsByUserID = function (userID) {
+
+  return pool.query(`
+
+      SELECT resources.*, resource_reviews.isLike, resource_reviews.rating
+      FROM resources
+      JOIN resource_reviews ON resource_reviews.user_id = resources.owner_id
+      WHERE resources.owner_id = $1 AND resource_reviews.isLike = true
+      ORDER BY created_at DESC;`, [userID])
+    .then(res => {
+      if (res.rows[0]) {
+
+        // console.log("res.rows is, ", res.rows);
+        return res.rows;
+
+      } else {
+
+        console.log("null returned");
+        return null;
+      }
+    })
+    .catch(err => console.log(err));
+
+}
 
 
 // addNewUser
@@ -70,6 +131,6 @@ const addNewUser = function (username, email, password2) {
     .catch(err => console.log(err));
 }
 
-module.exports = { addNewUser, getUserByID };
+module.exports = { addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID};
 
 
