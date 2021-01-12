@@ -1,5 +1,5 @@
 // require database file
-const { getUserByID, getUserByEmail, addNewUser, getSpecificResourceByID, getCommentsForSpecificResource, addNewResources} = require('./database');
+const { getUserByID, getUserByEmail, addNewUser, getSpecificResourceByID, getCommentsForSpecificResource, addNewResources, addNewReviewIsRating} = require('./database');
 //
 
 
@@ -88,6 +88,20 @@ const created_at = '2019-04-23 09:09:09';
 addNewResources(owner_id, category_id, title, url, description, created_at).then(res => {
 
   console.log("output from addNewResources Query is: ")
+  console.log(res);
+
+}).catch(err => console.log(err));
+
+
+// Test addNewReviewIsRating
+
+const user_id3 =  3;
+const resource_id = 2;
+const rating = 3;
+
+addNewReviewIsRating(user_id3, resource_id, rating).then(res => {
+
+  console.log("output from addNewReviewIsRating Query is: ")
   console.log(res);
 
 }).catch(err => console.log(err));

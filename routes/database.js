@@ -122,8 +122,10 @@ const getCommentsForSpecificResource = function (resource_ID) {
 
   return pool.query(`
 
-      SELECT * FROM resource_comments
-      WHERE resource_id = $1`, [resource_ID])
+  SELECT *
+  FROM resource_comments
+  JOIN users ON resource_comments.user_id = users.id
+  WHERE resource_id = $1`, [resource_ID])
     .then(res => {
       if (res.rows[0]) {
 
@@ -154,6 +156,20 @@ const addNewResources = function (owner_id, category_id, title, url, description
     .catch(err => console.log(err));
 }
 
-module.exports = { addNewUser, getUserByEmail, getUserByID, getSpecificResourceByID, getCommentsForSpecificResource, addNewResources };
+// addNewReviewIsRating
+
+const addNewReviewIsRating = function (user_id, resource_id, rating) {
+
+  return pool.query(`
+
+  INSERT INTO resource_reviews (user_id, resource_id, rating)
+  VALUES ($1, $2, $3)
+  RETURNING *;`, [user_id, resource_id, rating])
+    .then(res => res.rows[0])
+    .catch(err => console.log(err));
+}
+
+
+module.exports = { addNewUser, getUserByEmail, getUserByID, getSpecificResourceByID, getCommentsForSpecificResource, addNewResources, addNewReviewIsRating };
 
 
