@@ -146,6 +146,19 @@ const getResourcesByCategory = function (category_id) {
 }
 
 
-module.exports = { addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory};
+
+const getSpecificCategoryInfo = function (category_id) {
+
+  return pool.query(`
+
+    SELECT * FROM categories
+    WHERE id = $1`, [category_id])
+  .then(res => res.rows)
+  .catch(err => console.log(err));
+}
+
+
+
+module.exports = { addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo};
 
 
