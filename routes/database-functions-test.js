@@ -1,5 +1,5 @@
 // require database file
-const { getUserByID, addNewUser, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID , getResourcesByCategory, getSpecificCategoryInfo } = require('./database');
+const { getUserByID, addNewUser, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID , getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue, setIsLikeValue } = require('./database');
 //
 
 
@@ -30,7 +30,17 @@ getAllResources().then(res => {
 // getUserResourcesByUserID
 getUserResourcesByUserID(user_id).then(res => {
 
-  console.log("output from getUserResourcesByUserID Query is: ")
+  console.log("output from getUserResourceconst getSpecificCategoryInfo = function (category_id) {
+
+  return pool.query(`
+
+    SELECT * FROM categories
+    WHERE id = $1`, [category_id])
+  .then(res => res.rows)
+  .catch(err => console.log(err));
+}
+
+sByUserID Query is: ")
   console.log(res);
 
 }).catch(err => console.log(err));
@@ -75,13 +85,40 @@ getResourcesByCategory(category_id).then(res => {
 */
 
 
-
-// TEST getSpecificCategoryInfo function
+/*
+// TEST getSpecificCategoryInfo function ///////////////////////////////////////////////
 
 let category_id = 5;
 getSpecificCategoryInfo(category_id).then(res => {
 
   console.log("output from getResourcesByCategory Query is: ")
+  console.log(res);
+
+}).catch(err => console.log(err));
+*/
+
+/*
+// TEST getIsLikeValue function ///////////////////////////////////////////////
+let resource_id = 9;
+user_id = 12;
+
+getIsLikeValue(user_id,resource_id).then(res => {
+
+  console.log("output from getIsLikeValue Query is: ")
+  console.log(res);
+
+}).catch(err => console.log(err));
+*/
+
+// TEST setIsLikeValue function ///////////////////////////////////////////////
+
+let user_id = 9;
+let resource_id = 5;
+let isLikeValue = true;
+
+setIsLikeValue(user_id,resource_id, isLikeValue).then(res => {
+
+  console.log("output from setIsLikeValue Query is: ")
   console.log(res);
 
 }).catch(err => console.log(err));

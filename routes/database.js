@@ -157,8 +157,30 @@ const getSpecificCategoryInfo = function (category_id) {
   .catch(err => console.log(err));
 }
 
+const getIsLikeValue = function (user_ID, resource_ID ) {
+
+  return pool.query(`
+
+    SELECT * FROM resource_reviews
+    WHERE user_id = $1 AND resource_id = $2;`, [user_ID, resource_ID])
+  .then(res => res.rows)
+  .catch(err => console.log(err));
+}
 
 
-module.exports = { addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo};
+const setIsLikeValue = function (user_ID, resource_ID, isLikeValue ) {
 
+  return pool.query(`
+
+    UPDATE resource_reviews
+    SET isLike = $3
+    WHERE user_id = $1 AND resource_id = $2
+    RETURNING *;
+    `, [user_ID, resource_ID, isLikeValue])
+  .then(res => res.rows)
+  .catch(err => console.log(err));
+}
+
+
+module.exports = { addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue};
 
