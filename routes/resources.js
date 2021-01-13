@@ -28,7 +28,7 @@ router.get("/", (req, res) => {
 
     let user_email;
     let allResources;
-
+    let resourceDate;
     // need to get email to display the logged-in user for the element id="navbarDropdown" on ejs for main_resource.ejs
     databaseHelper.getUserByID(user_id)
     .then(result => {
@@ -48,20 +48,19 @@ router.get("/", (req, res) => {
       console.log("Result is: ", result);
       //let avgRating = result;
       let allResources = result;
+
+      //resourceDate = allResources.created_at;
+
+      console.log("resourceDate is: ", resourceDate);
       let templateVars = {
         user_email: user_email,
         allResources: allResources
+
       };
 
-      res.render("main_resource-sk", templateVars);
+      res.render("main_resource", templateVars);
 
     });
-    // get all the resources from database and to res.render the resources (main) page.
-
-    // need to display all the resources
-
-    // need to display
-
 
   } else {
     console.log("Please login or register to view requested page");
@@ -76,6 +75,70 @@ router.get("/", (req, res) => {
   */
 
 });
+
+/////////////////////////////////////////////////////////
+// GET	/categories/:category_name/resources	show resources filtered by category	chosen category from pull down menu in nav bar
+/////////////////////////////////////////////////////////////////////////////////////////////
+/*
+router.get("/categories/:category_id/resources", (req, res) => {
+  // check if user is logged in and if yes, otherwise redirect to index page with message.
+  let user_id = req.session.user_id;
+
+  if(user_id) {
+
+    let user_email;
+    let allResources;
+    let resourceDate;
+    // need to get email to display the logged-in user for the element id="navbarDropdown" on ejs for main_resource.ejs
+    databaseHelper.getUserByID(user_id)
+    .then(result => {
+
+      user_email = result.email;
+
+      //res.send(result);
+
+      console.log('result is: ', result);
+      // get all resources from the user
+      return databaseHelper.getResourcesByCategory(1);
+
+      // send the templateVars with all the resources inside ejs template.
+
+    }).then(result => {
+
+      console.log("Result is: ", result);
+      //let avgRating = result;
+      let allResources = result;
+
+      //resourceDate = allResources.created_at;
+
+      console.log("resourceDate is: ", resourceDate);
+      let templateVars = {
+        user_email: user_email,
+        allResources: allResources
+
+      };
+
+      res.render("main_resource-sk", templateVars);
+
+    });
+
+  } else {
+    console.log("Please login or register to view requested page");
+    res.redirect("/index");
+  }
+  // get the user-name-value for the total
+  /*
+  databaseHelper.getAllResources().then(result => {
+  req.session.resourceCookie = "Resources";
+  res.send(result);
+  })
+  */
+
+
+
+
+
+
 
 
 module.exports = router;

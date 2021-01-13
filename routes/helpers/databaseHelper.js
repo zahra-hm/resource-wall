@@ -96,6 +96,7 @@ const getAllResourcesAvgRating = function () {
 };
 
 
+
 // getUserResourcesByUserID
 // Return resources belong to the user (order by newest to oldest)
 
@@ -172,8 +173,12 @@ const getResourcesByCategory = function (category_id) {
 
   return pool.query(`
 
-  SELECT * FROM resources
-  WHERE category_id = $1
+  SELECT users.username, resources.*, ROUND(AVG(resource_reviews.rating),1) AS avg
+  FROM resources
+  JOIN users ON users.id = resources.owner_id
+  JOIN resource_reviews ON resource_reviews.resource_id = resources.id
+  WHERE category_id =$1
+  GROUP BY resources.id, users.username
   ORDER BY created_at DESC;`, [category_id])
     .then(res => res.rows)
     .catch(err => console.log(err));
