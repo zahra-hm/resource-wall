@@ -5,32 +5,35 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 const router = require("express").Router();
-const userDatabaseHelper = require('./helpers/userDatabaseHelper');
+const databaseHelper = require('./helpers/databaseHelper');
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-// module.exports = function (router, db) {
 
-  router.get("/", (req, res) => {
-    userDatabaseHelper.getUserByID(1).then(user => {
-      req.session.test = "Test";
-    res.send(user.username);
-    })
+router.get("/", (req, res) => {
+  databaseHelper.getUserByID(1).then(result => {
+  req.session.test = "Test";
+  res.send(result.username);
+  })
 
-    // db.query(`SELECT * FROM users;`)
-    //   .then(data => {
-    //     const users = data.rows;
-    //     res.json({ users });
-    //   })
-    //   .catch(err => {
-    //     res
-    //       .status(500)
-    //       .json({ error: err.message });
-    //   });
   });
 
-  /*
+/*
+module.exports = (db) => {
+  router.get("/", (req, res) => {
+    db.query(`SELECT * FROM users;`)
+      .then(data => {
+        const users = data.rows;
+        res.json({ users });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
   router.get("/profile/:user_id", (req, res) => {
     db.query(`SELECT * FROM users;`)
       .then(data => {
@@ -82,44 +85,43 @@ const saltRounds = 10;
           .json({ error: err.message });
       });
   });
-  */
 
-  /*
-    router.post("/register", (req, res) => {
-      // check if user exists (for now use seed data i.e user exists.)
-      // if user exists --> error-message (res.send("user already exists with that email")).
-
-
-      // extract submitted user info from register form submitted.
-      let newUserInfo = req.body;
-
-      // post to database first (postNewUser --> post data into database)
-       //addNewUser(newUserInfo).catch(err => console.log(err));
-
-      // Logic to make sure user is registered, if registed get the session cookies value for user_id.
-
-      // If not registered
-
-      // require logged in user's info, and also all resources (entire table).
-      // const userInfo = getUserData();
+/*
+  router.post("/register", (req, res) => {
+    // check if user exists (for now use seed data i.e user exists.)
+    // if user exists --> error-message (res.send("user already exists with that email")).
 
 
-      // from database require new_user info
-      // from
-      console.log(req.body);
+    // extract submitted user info from register form submitted.
+    let newUserInfo = req.body;
 
-      /*
-      db.query(`SELECT * FROM users;`)
-        .then(data => {
-          const users = data.rows;
-          res.json({ users });
-        })
-        .catch(err => {
-          res
-            .status(500)
-            .json({ error: err.message });
-        });
-      */
+    // post to database first (postNewUser --> post data into database)
+     //addNewUser(newUserInfo).catch(err => console.log(err));
+
+    // Logic to make sure user is registered, if registed get the session cookies value for user_id.
+
+    // If not registered
+
+    // require logged in user's info, and also all resources (entire table).
+    // const userInfo = getUserData();
+
+
+    // from database require new_user info
+    // from
+    console.log(req.body);
+
+    /*
+    db.query(`SELECT * FROM users;`)
+      .then(data => {
+        const users = data.rows;
+        res.json({ users });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+    */
   //});
   /*
   router.post('/register', (req, res) => {
@@ -173,7 +175,6 @@ const saltRounds = 10;
 
 
   module.exports = router;
-// };
 
 
 

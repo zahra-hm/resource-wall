@@ -38,9 +38,16 @@ app.use(express.static("public"));
 
 
 const userRouter = require('./routes/users');
+const resourceRouter = require('./routes/resources');
+const resourceWallRouter = require('./routes/resourcewall');
+const categoryRouter = require('./routes/categories');
+const profileRouter = require('./routes/profile');
+
 app.use("/users", userRouter);
-
-
+app.use("/resources", resourceRouter);
+app.use("/resourcewall", resourceWallRouter);
+app.use("/categories", categoryRouter);
+app.use("/profile", profileRouter);
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -57,7 +64,7 @@ app.use("/users", userRouter);
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-app.get("/", (req, res) => {
+app.get("/index", (req, res) => {
   res.send("I'm app.get /");
 });
 
