@@ -22,9 +22,12 @@ router.get("/", (req, res) => {
 router.get("/", (req, res) => {
   // check if user is logged in and if yes, otherwise redirect to index page with message.
   let user_id = req.session.user_id;
-  let user_email;
+
 
   if(user_id) {
+
+    let user_email;
+    let allResources;
 
     // need to get email to display the logged-in user for the element id="navbarDropdown" on ejs for main_resource.ejs
     databaseHelper.getUserByID(user_id)
@@ -36,24 +39,21 @@ router.get("/", (req, res) => {
 
       console.log('result is: ', result);
       // get all resources from the user
-      return databaseHelper.getAllResources2();
+      return databaseHelper.getAllResourcesAvgRating();
 
       // send the templateVars with all the resources inside ejs template.
 
     }).then(result => {
 
-     //req.session.resourceCookie = "Resources";
-     //console.log(result);
-     console.log("resulT FROM getAllResources is");
-     //res.send(result);
-      console.log(result);
-     //res.send(result);
-     let templateVars = {
-      user_email: user_email,
-      allResources: result
-     };
+      console.log("Result is: ", result);
+      //let avgRating = result;
+      let allResources = result;
+      let templateVars = {
+        user_email: user_email,
+        allResources: allResources
+      };
 
-     res.render("main_resource-sk", templateVars);
+      res.render("main_resource-sk", templateVars);
 
     });
     // get all the resources from database and to res.render the resources (main) page.
@@ -64,7 +64,8 @@ router.get("/", (req, res) => {
 
 
   } else {
-
+    console.log("Please login or register to view requested page");
+    res.redirect("/index");
   }
   // get the user-name-value for the total
   /*
