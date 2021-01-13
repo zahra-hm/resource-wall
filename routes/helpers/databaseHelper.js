@@ -4,6 +4,16 @@ const pool = require('../database');
 // getAllResources
 // Return all resources info order by newest to oldest
 
+/* Output/returned object from getUserByID is in the format below.
+  {
+id: 1,
+username: "DevinSanders",
+email: "tristanjacobs@gmail.com",
+password: "$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.",
+image_url: "https://icon-library.net/images/generic-user-icon/generic-user-icon-10.jpg"
+}
+
+*/
 const getUserByID = function (userID) {
 
   return pool.query(`
@@ -65,6 +75,26 @@ const getAllResources = function () {
     .catch(err => console.log(err));
 
 };
+
+const getAllResourcesAvgRating = function () {
+
+  return pool.query(`
+
+  SELECT users.username, resources.*, ROUND(AVG(resource_reviews.rating),1) AS avg
+  FROM resources
+  JOIN users ON users.id = resources.owner_id
+  JOIN resource_reviews ON resource_reviews.resource_id = resources.id
+  GROUP BY resources.id, users.username
+  ORDER BY created_at DESC;`)
+    .then(res => {
+
+      // console.log("res.rows is, ", res.rows);
+      return res.rows;
+    })
+    .catch(err => console.log(err));
+
+};
+
 
 
 // getUserResourcesByUserID
@@ -143,8 +173,12 @@ const getResourcesByCategory = function (category_id) {
 
   return pool.query(`
 
-  SELECT * FROM resources
-  WHERE category_id = $1
+  SELECT users.username, resources.*, ROUND(AVG(resource_reviews.rating),1) AS avg
+  FROM resources
+  JOIN users ON users.id = resources.owner_id
+  JOIN resource_reviews ON resource_reviews.resource_id = resources.id
+  WHERE category_id =$1
+  GROUP BY resources.id, users.username
   ORDER BY created_at DESC;`, [category_id])
     .then(res => res.rows)
     .catch(err => console.log(err));
@@ -327,6 +361,7 @@ const getResourceReviewsByResourceID = function (resource_id) {
 
 }
 
+
 const addNewReviewsIsLike = function (user_ID, resource_ID, isLikeValue ) {
 
   return pool.query(`
@@ -352,7 +387,7 @@ const updateUserName = function (user_ID, username) {
   .catch(err => console.log(err));
 }
 
-module.exports = {addNewComment, getResourceReviewsByResourceID,getResourceReviewsByOwnerID, addNewReviewIsRating, addNewResources, getCommentsForSpecificResource, getSpecificResourceByID,getUserByEmail, addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName};
+module.exports = {getAllResourcesAvgRating, addNewComment, getResourceReviewsByResourceID,getResourceReviewsByOwnerID, addNewReviewIsRating, addNewResources, getCommentsForSpecificResource, getSpecificResourceByID,getUserByEmail, addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName};
 
 
 

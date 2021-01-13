@@ -8,4 +8,5 @@ CREATE TABLE resources (
   url TEXT NOT NULL,
   description TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT NOW()
+
 );
