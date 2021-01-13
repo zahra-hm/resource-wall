@@ -67,13 +67,14 @@ app.use("/profile", profileRouter);
 app.get("/index", (req, res) => {
  //res.send("I'm app.get /");
  //req.session.user_id = "1";
+ req.session.user_id = "1";
   const templateVars = {};
  res.render('index', templateVars);
 });
 
 app.get("/addResource", (req, res) => {
   //res.send("I'm app.get /");
-  //req.session.user_id = "1";
+
    const templateVars = {user_email: "hello@gmail.com"};
   res.render('new_resource', templateVars);
  });
