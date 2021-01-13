@@ -76,6 +76,23 @@ const getAllResources = function () {
 
 };
 
+const getAllResources2 = function () {
+
+  return pool.query(`
+
+  SELECT users.username, resources.*
+  FROM resources
+  JOIN users ON users.id = resources.owner_id
+  ORDER BY created_at DESC;`)
+    .then(res => {
+
+      // console.log("res.rows is, ", res.rows);
+      return res.rows;
+    })
+    .catch(err => console.log(err));
+
+};
+
 
 // getUserResourcesByUserID
 // Return resources belong to the user (order by newest to oldest)
@@ -362,7 +379,7 @@ const updateUserName = function (user_ID, username) {
   .catch(err => console.log(err));
 }
 
-module.exports = {addNewComment, getResourceReviewsByResourceID,getResourceReviewsByOwnerID, addNewReviewIsRating, addNewResources, getCommentsForSpecificResource, getSpecificResourceByID,getUserByEmail, addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName};
+module.exports = {getAllResources2, addNewComment, getResourceReviewsByResourceID,getResourceReviewsByOwnerID, addNewReviewIsRating, addNewResources, getCommentsForSpecificResource, getSpecificResourceByID,getUserByEmail, addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName};
 
 
 

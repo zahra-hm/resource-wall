@@ -18,10 +18,11 @@ router.get("/", (req, res) => {
 
 // 2	GET	/resources
 // Show Main page with all resources / filtered Main page	opens after successful log in or register, click on logo
-/*
+
 router.get("/", (req, res) => {
   // check if user is logged in and if yes, otherwise redirect to index page with message.
   let user_id = req.session.user_id;
+  let user_email;
 
   if(user_id) {
 
@@ -29,24 +30,30 @@ router.get("/", (req, res) => {
     databaseHelper.getUserByID(user_id)
     .then(result => {
 
-      let user_email = result.email;
+      user_email = result.email;
 
       //res.send(result);
 
       console.log('result is: ', result);
       // get all resources from the user
-      return databaseHelper.getAllResources();
+      return databaseHelper.getAllResources2();
 
       // send the templateVars with all the resources inside ejs template.
 
     }).then(result => {
 
      //req.session.resourceCookie = "Resources";
-
+     //console.log(result);
+     console.log("resulT FROM getAllResources is");
      //res.send(result);
-     let templateVars = {};
+      console.log(result);
+     //res.send(result);
+     let templateVars = {
+      user_email: user_email,
+      allResources: result
+     };
 
-     res.render("main_resource", templateVars);
+     res.render("main_resource-sk", templateVars);
 
     });
     // get all the resources from database and to res.render the resources (main) page.
@@ -66,8 +73,8 @@ router.get("/", (req, res) => {
   res.send(result);
   })
   */
- /*
+
 });
-*/
+
 
 module.exports = router;

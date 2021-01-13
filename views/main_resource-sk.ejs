@@ -1,0 +1,48 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!-- App CSS -->
+<!-- <link rel="stylesheet" href="styles/main_resource.css" type="text/css" /> -->
+
+
+<body>
+    <header>
+      <%- include('partials/_header') %>
+    </header>
+    <div id="login">
+      <h3 class="text-center text-danger pt-5">RESOURCE WALL</h3>
+      <form id="new-resource" action="/resources/search?=:query" method="POST">
+
+        <div class="search-area">
+          <div class="input-box">
+            <input class="textbox" type="text" name="text" id="resouce-text" placeholder="Search..." ></input>
+            <button type="submit" class="btn btn-warning">Search</button>
+          </div>
+        </div>
+      </form>
+      <div class="main-resource">
+
+        <% for(let x = 0; x < allResources.length ; x++){ %>
+          <article class="resource">
+
+            <div class="info">
+              <div>
+                <a class = "resourceTitleTag" href=<%= allResources[x].url %>> <%= allResources[x].title%></a>
+              </div>
+                <span class="name"><%= allResources[x].username %><span>
+                <span class="rating">Avg Rating: ?</span>
+            </div>
+
+            <p class="resource-data"><%= allResources[x].description %></p>
+            <footer class="footer">
+              <span class="date">Date Created:</span>
+            </footer>
+          </article>
+        <% } %>
+    </div>
+
+    </div>
+</body>
+
