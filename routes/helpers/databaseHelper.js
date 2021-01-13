@@ -4,6 +4,16 @@ const pool = require('../database');
 // getAllResources
 // Return all resources info order by newest to oldest
 
+/* Output/returned object from getUserByID is in the format below.
+  {
+id: 1,
+username: "DevinSanders",
+email: "tristanjacobs@gmail.com",
+password: "$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.",
+image_url: "https://icon-library.net/images/generic-user-icon/generic-user-icon-10.jpg"
+}
+
+*/
 const getUserByID = function (userID) {
 
   return pool.query(`

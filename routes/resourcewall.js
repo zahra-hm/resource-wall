@@ -13,4 +13,28 @@ router.get("/", (req, res) => {
 
 });
 
-  module.exports = router;
+// Handles
+//2	GET	/resourcewall/logout	Log user out , clear cookies, re-routes to index page.	Logout button on all pages with header.
+// Function tested and Works
+/* HANDLES POST REQUEST TO "/logout" - clears session cookies */
+router.get("/logout", (req, res) => {
+
+  // 1) Logout user by clearing cookies - set cookies to null.
+  req.session = null;
+  // 2) Redirect to index page.
+  res.redirect('/index');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports = router;
