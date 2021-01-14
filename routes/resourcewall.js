@@ -13,6 +13,9 @@ router.get("/", (req, res) => {
 
 });
 
+
+
+
 router.get("/register", (req, res) => {
   let user_id = req.session.user_id;
 
@@ -23,9 +26,8 @@ router.get("/register", (req, res) => {
   } else {
 
     res.render("register");
+  }
 
-
-}
 });
 
 router.post("/register", (req, res) => {
@@ -38,7 +40,7 @@ router.post("/register", (req, res) => {
 
     .then(result => {
       if (result) {
-        res.send("Account with that email already exists!!");
+        res.send("Account with that email already exists");
         //ADD ERROR EJS FILE
       } else {
         return databaseHelper.addNewUser(username, email, password);
