@@ -13,9 +13,6 @@ router.get("/", (req, res) => {
 
 });
 
-
-
-
 router.get("/register", (req, res) => {
   let user_id = req.session.user_id;
 
