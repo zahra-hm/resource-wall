@@ -1,24 +1,21 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<head>
+  <title>Bootstrap 4 Drop Down Menu</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
 <!------ Include the above in your HEAD tag ---------->
-
 <!-- App CSS -->
 <!-- <link rel="stylesheet" href="styles/main_resource.css" type="text/css" /> -->
-
-
 <body>
   <header>
     <%- include('partials/_header') %>
   </header>
   <div id="login">
     <h3 class="text-center text-danger pt-5">RESOURCE WALL</h3>
-    <!-- <form id="new-resource" action="/resources/search?=:query" method="POST"> -->
-
     <div class="main-resource">
-
       <article class="resource" style="padding: 20px">
-
         <div class="info">
           <div>
             <a class="resourceTitleTag" href=<%= resource_info.url %>> <%= resource_info.title%></a>
@@ -26,42 +23,30 @@
           <span class="name"><b>Creator: </b><%= resource_info.username %><span>
               <span class="rating"><b> Avg Rating: </b><%= resource_info.avg%></span>
         </div>
-
         <p class="resource-data"><%= resource_info.description %></p>
         <footer class="footer">
           <span class="date"><b>Date Created:</b><%= resource_info.created_at%></span>
         </footer>
       </article>
     </div>
-
     <article class="comment" style="padding: 20px">
-
       <div class="new-comment" style="border-style: dotted">
         <form action="/resources" method="POST"></form>
         <label>Add new comment:</label>
         <input class="comment-box" type="text" name="newComment" placeholder="Enter comment...">
         <button type="submit" class="btn-addComment">Submit</button>
       </div>
-
     </article>
-
-    <!-- Add for loop to display old comments -->
     <div class="old-comment" style="border-style: dotted">
-
       <% for(let x = 0; x < comments_info.length ; x++){ %>
       <article class="comment" style="padding: 20px">
-
         <div class="info">
           <span class="name"><%= comments_info[x].username %><span>
               <span class="date"><b>Date Created:</b><%= comments_info[x].created_at%></span>
               <p class="comment-data"><%= comments_info[x].comment %></p>
         </div>
-
       </article>
       <% } %>
     </div>
-
-
   </div>
-
 </body>

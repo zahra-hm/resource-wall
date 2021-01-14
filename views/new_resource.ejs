@@ -1,8 +1,10 @@
-
-
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<head>
+  <title>Bootstrap 4 Drop Down Menu</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
 <!------ Include the above in your HEAD tag ---------->
 
 <body>
@@ -11,7 +13,7 @@
     </header>
     <div id="login">
       <style type="text/css">
-        body { background-color:  !important; }
+
       </style>
 
         <div class="container">
@@ -20,7 +22,6 @@
                     <div id="login-box" class="col-md-12">
                         <form id="register-form" class="form" action="/resources" method="post" style="border: solid black 2px">
                             <h3 class="text-center text-success">ADD RESOURCE BELOW>
-
                             <div class="form-group">
                               <label for="resourceTitle" class="text-success">Title:</label><br>
                               <input type="text" name="title" id="new-res-title" placeholder="Enter title..." class="form-control">
@@ -28,13 +29,11 @@
                             <div class="form-group">
                                 <label for="newResourceURL" class="text-success">URL</label><br>
                                 <input type="text" name="url" id="new-res-url" placeholder="Enter URL..." class="form-control">
-
                             </div>
                             <div class="form-group">
                               <label for="newResourceDescription" class="text-success">Description</label><br>
                               <input type="text" name="description" id="new-res-description" placeholder="Enter description..." class="form-control">
                             </div>
-
                             <input type="radio" id="Sports" name="category_id" value="1">
                             <label for="Sports">Sports</label><br>
                             <input type="radio" id="Business" name="category_id" value="2">
@@ -47,14 +46,13 @@
                             <label for="Travel">Travel</label><br>
                             <div class="form-group">
                               <button type="submit" class="btn btn-success">ADD!</button>
-                            </div>                    
+                            </div>
                         </form>
-
                         <a class = "redirectButton" href="/resources" style = "border: solid black 2px" >Go back to Main page</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </body>
 

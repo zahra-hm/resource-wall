@@ -1,6 +1,10 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<head>
+  <title>Bootstrap 4 Drop Down Menu</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
 <!------ Include the above in your HEAD tag ---------->
 
 <!-- App CSS -->
@@ -8,41 +12,36 @@
 
 
 <body>
-    <header>
-      <%- include('partials/_header') %>
-    </header>
-    <div id="login">
-      <h3 class="text-center text-danger pt-5">RESOURCE WALL</h3>
-      <form id="new-resource" action="/resources/search?=:query" method="POST">
+  <header>
+    <%- include('partials/_header') %>
+  </header>
+  <div id="login">
+    <h3 class="text-center text-danger pt-5">RESOURCE WALL</h3>
+    <form id="new-resource" action="/resources/search" method="POST">
 
-        <div class="search-area">
-          <div class="input-box">
-            <input class="textbox" type="text" name="text" id="resouce-text" placeholder="Search..." ></input>
-            <button type="submit" class="btn btn-warning">Search</button>
-          </div>
+      <div class="search-area">
+        <div class="input-box">
+          <input class="textbox" type="text" name="searchBar" id="resouce-text" placeholder="Search..."></input>
+          <button type="submit" class="btn btn-warning">Search</button>
         </div>
-      </form>
-      <div class="main-resource">
-
-        <% for(let x = 0; x < allResources.length ; x++){ %>
-          <article class="resource" style ="padding: 20px">
-
-            <div class="info">
-              <div>
-                <a class = "resourceTitleTag" href=<%= allResources[x].url %>> <%= allResources[x].title%></a>
-              </div>
-                <span class="name"><b>Creator: </b><%= allResources[x].username %><span>
-                <span class="rating"><b>  Avg Rating: </b><%= allResources[x].avg%></span>
-            </div>
-
-            <p class="resource-data"><%= allResources[x].description %></p>
-            <footer class="footer">
-              <span class="date"><b>Date Created:</b><%= allResources[x].created_at%></span>
-            </footer>
-          </article>
-        <% } %>
+      </div>
+    </form>
+    <div class="main-resource">
+      <% for(let x = 0; x < allResources.length ; x++){ %>
+      <article class="resource" style="padding: 20px">
+        <div class="info">
+          <div>
+            <a class="resourceTitleTag" href=<%= allResources[x].url %>> <%= allResources[x].title%></a>
+          </div>
+          <span class="name"><b>Creator: </b><%= allResources[x].username %><span>
+              <span class="rating"><b> Avg Rating: </b><%= allResources[x].avg%></span>
+        </div>
+        <p class="resource-data"><%= allResources[x].description %></p>
+        <footer class="footer">
+          <span class="date"><b>Date Created:</b><%= allResources[x].created_at%></span>
+        </footer>
+      </article>
+      <% } %>
     </div>
-
-    </div>
+  </div>
 </body>
-

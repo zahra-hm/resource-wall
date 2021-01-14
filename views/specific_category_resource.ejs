@@ -1,45 +1,48 @@
 
-
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<head>
+  <title>Bootstrap 4 Drop Down Menu</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
 <!------ Include the above in your HEAD tag ---------->
 
 <!-- App CSS -->
-<link rel="stylesheet" href=".css" type="text/css" />
+<!-- <link rel="stylesheet" href="styles/main_resource.css" type="text/css" /> -->
 
 <body>
-    <header>
-      <%- include('partials/_header') %>
-    </header>
-    <div id="login">
-      <h3 class="text-center text-danger pt-5">RESOURCE WALL</h3>
-      <form id="new-resource" action="" method="POST">
+  <header>
+    <%- include('partials/_header') %>
+  </header>
+  <div id="login">
+    <h3 class="text-center text-danger pt-5">RESOURCE WALL</h3>
+    <form id="new-resource" action="/resources/search?=:query" method="POST">
 
+      <div class="search-area">
         <div class="input-box">
-          <div class="textbox"><input type="text" name="text" id="resouce-text" placeholder="Search..." ></div>
+          <input class="textbox" type="text" name="text" id="resouce-text" placeholder="Search..."></input>
+          <button type="submit" class="btn btn-warning">Search</button>
         </div>
-        <div class="search-btn">
-          <button type="submit">Search</button>
-        </div>
-      </form>
-      <h3 class="text-primary pt-5">Sports Resources:</h3>
-      <img src='https://lh3.googleusercontent.com/proxy/yNOK_F0rjFU2Ca0oNWzyho5kbBjePGhQnFQlDz3oippzliEC2qfZKDXV_L52CM0r5z_b4UYatnnqqdhGLHOF6r-WYLWocLkunjd7C1K0wYIsJZMzwsjcer6gAwPXaQqw_w0fJtP0bQLBynq6nhqnA6RFFbbxu0PTDZy9Cfsr6xI' class="banner"/>
-      <article class="resource">
-        <header>
-          <div class="info">
-            <span class="name">John Doe</span>
+      </div>
+    </form>
+    <div class="main-resource">
+
+      <% for(let x = 0; x < allResources.length ; x++){ %>
+      <article class="resource" style="padding: 20px">
+        <div class="info">
+          <div>
+            <a class="resourceTitleTag" href=<%= allResources[x].url %>> <%= allResources[x].title%></a>
           </div>
-          <span class="rating">Avg Rating: ?</span>
-        </header>
-        <p class="resource-data">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-        <footer>
-          <span class="date">Date: ##/##/##</span>
-          <span class ="like-icon">&#128153</span>
+          <span class="name"><b>Creator: </b><%= allResources[x].username %><span>
+              <span class="rating"><b> Avg Rating: </b><%= allResources[x].avg%></span>
+        </div>
+        <p class="resource-data"><%= allResources[x].description %></p>
+        <footer class="footer">
+          <span class="date"><b>Date Created:</b><%= allResources[x].created_at%></span>
         </footer>
       </article>
-
+      <% } %>
     </div>
+  </div>
 </body>
-
