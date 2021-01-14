@@ -78,6 +78,32 @@ app.get("/addResource", (req, res) => {
    const templateVars = {user_email: "hello@gmail.com"};
   res.render('new_resource', templateVars);
  });
+
+
+//  app.get("/login", (req, res) => {
+//   //res.send("I'm app.get /");
+//   //req.session.user_id = "1";
+//   //  const templateVars = {user_email: "hello@gmail.com"};
+//   res.render('login');
+//  });
+
+//  router.post("/login", (req, res) => {
+//   console.log("INSIDE POST LOGIN")
+//   const user_email = req.body.email;
+//   const password = req.body.password;
+
+//   const user = databaseHelper.getUserByEmail(user_email);
+//   if (password === user.password) {
+//     res.redirect("/resources");
+//   }
+// })
+
+
+// app.get("/resources/:resource_id", (req, res) => {
+//   res.render("specific_resource");
+// });
+
+
 // app.get("/users/", (req, res) => {
 //   res.send("I'm app.get /users/");
 // });

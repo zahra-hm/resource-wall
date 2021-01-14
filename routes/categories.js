@@ -15,10 +15,6 @@ router.get("/", (req, res) => {
 
 });
 
-
-
-
-
 /////////////////////////////////////////////////////////
 // GET	/categories/:category_name/resources	show resources filtered by category	chosen category from pull down menu in nav bar
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -71,9 +67,6 @@ router.get("/:category_id/resources", (req, res) => {
   }
 
 });
-
-
-
 
 
 module.exports = router;

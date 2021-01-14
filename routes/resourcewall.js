@@ -7,8 +7,8 @@ const saltRounds = 10;
 
 router.get("/", (req, res) => {
   databaseHelper.getUserByID(1).then(result => {
-  req.session.test = "Test";
-  res.send(result.username);
+    req.session.test = "Test";
+    res.send(result.username);
   })
 
 });
@@ -28,3 +28,4 @@ router.get("/logout", (req, res) => {
 
 
 module.exports = router;
+
