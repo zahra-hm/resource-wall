@@ -30,6 +30,7 @@ router.get("/logout", (req, res) => {
 //1 GET /resourcewall/login  
 // Email for testing: michaelgray@mail.com
 // Password for testing: $2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.
+
 router.get("/login", (req, res) => {
   
 
@@ -50,7 +51,7 @@ router.get("/login", (req, res) => {
 
 
 
-//1 POST /resourcewall/login
+//1 POST /resourcewall/login , Check username and password, only allow valid user to login
 
 router.post("/login", (req, res) => {
 
@@ -76,6 +77,7 @@ router.post("/login", (req, res) => {
       console.log(err);
   
   });
+  
 
 
   // if (password === user.password) {
