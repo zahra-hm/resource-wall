@@ -7,8 +7,8 @@ const saltRounds = 10;
 
 router.get("/", (req, res) => {
   databaseHelper.getUserByID(1).then(result => {
-  req.session.test = "Test";
-  res.send(result.username);
+    req.session.test = "Test";
+    res.send(result.username);
   })
 
 });
@@ -27,12 +27,12 @@ router.get("/logout", (req, res) => {
 
 
 
-//1 GET /resourcewall/login  
+//1 GET /resourcewall/login
 // Email for testing: michaelgray@mail.com
 // Password for testing: $2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.
 
 router.get("/login", (req, res) => {
-  
+
 
   const user_id = req.session.user_id;
 
@@ -59,25 +59,24 @@ router.post("/login", (req, res) => {
   const password = req.body.password;
 
   databaseHelper.getUserByEmail(user_email)
-  .then(result => {
+    .then(result => {
 
-    if (result && result.password === password) {
+      if (result && result.password === password) {
 
-      req.session.user_id = result.id;
-      res.redirect("/resources");
+        req.session.user_id = result.id;
+        res.redirect("/resources");
 
-    } else {
+      } else {
 
-      res.send("Your email or password is invalid");
+        res.send("Your email or password is invalid");
 
-    }
-  })
+      }
+    })
 
-  .catch(error => {
-      console.log(err);
-  
-  });
-  
+    .catch(error => console.log(error));
+
+});
+
 
 
   // if (password === user.password) {
@@ -104,10 +103,10 @@ router.post("/login", (req, res) => {
 
   //     } else {
 
-  //       const templateVars = { 
+  //       const templateVars = {
   //         user_email: user_email
   //       };
-        
+
   //       res.render("login", templateVars);
 
   //     }
@@ -118,11 +117,11 @@ router.post("/login", (req, res) => {
   // }
 
 
-});
+// });
 
 // Check if user is logged-in, re-route to Main Resources page
 
-// Else 
+// Else
 
 
 

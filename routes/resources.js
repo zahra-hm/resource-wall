@@ -24,43 +24,43 @@ router.get("/", (req, res) => {
   let user_id = req.session.user_id;
 
 
-  if(user_id) {
+  if (user_id) {
 
     let user_email;
     let allResources;
     let resourceDate;
     // need to get email to display the logged-in user for the element id="navbarDropdown" on ejs for main_resource.ejs
     databaseHelper.getUserByID(user_id)
-    .then(result => {
+      .then(result => {
 
-      user_email = result.email;
+        user_email = result.email;
 
-      //res.send(result);
+        //res.send(result);
 
-      // console.log('result is: ', result);
-      // get all resources from the user
-      return databaseHelper.getAllResourcesAvgRating();
+        // console.log('result is: ', result);
+        // get all resources from the user
+        return databaseHelper.getAllResourcesAvgRating();
 
-      // send the templateVars with all the resources inside ejs template.
+        // send the templateVars with all the resources inside ejs template.
 
-    }).then(result => {
+      }).then(result => {
 
-      // console.log("Result is: ", result);
-      //let avgRating = result;
-      let allResources = result;
+        // console.log("Result is: ", result);
+        //let avgRating = result;
+        let allResources = result;
 
-      //resourceDate = allResources.created_at;
+        //resourceDate = allResources.created_at;
 
-      // console.log("resourceDate is: ", resourceDate);
-      let templateVars = {
-        user_email: user_email,
-        allResources: allResources
+        // console.log("resourceDate is: ", resourceDate);
+        let templateVars = {
+          user_email: user_email,
+          allResources: allResources
 
-      };
+        };
 
-      res.render("main_resource", templateVars);
+        res.render("main_resource", templateVars);
 
-    });
+      });
 
   } else {
     console.log("Please login or register to view requested page");
@@ -90,13 +90,13 @@ router.get("/resources/new", (req, res) => {
   if (user_id) {
 
     databaseHelper.getUserByID(user_id)
-    .then(result => {
+      .then(result => {
 
-      user_email = result.email;
+        user_email = result.email;
 
-    const templateVars = { user_email: user_email};
-    res.render("new_resource", templateVars);
-    })
+        const templateVars = { user_email: user_email };
+        res.render("new_resource", templateVars);
+      })
 
   } else {
 
@@ -124,42 +124,117 @@ router.post("/", (req, res) => {
   if (user_id) {
 
     databaseHelper.getUserByID(user_id)
-    .then(result => {
-      user_email = result.email;
+      .then(result => {
+        user_email = result.email;
 
-      if (result) {
-        // console.log('Result from getUserByID is: ', result);
-        const result2 = databaseHelper.addNewResources(
-                owner_id,
-                category_id,
-                title,
-                url,
-                description
-                );
+        if (result) {
+          const result2 = databaseHelper.addNewResources(
+            owner_id,
+            category_id,
+            title,
+            url,
+            description
+          );
           return result2;
 
-      }
-      // console.log("******* RESULT IS UNDEFINED WHY????????????????");
-    })
-    .then(result => {
-      // console.log('Result addNewResources is: ', result);
-      const newResource = result;
+        }
+        // console.log("******* RESULT IS UNDEFINED WHY????????????????");
+      })
+      .then(result => {
+        // console.log('Result addNewResources is: ', result);
+        const newResource = result;
 
-      let templateVars = {
-        user_email: user_email,
-        allResources: newResource
+        let templateVars = {
+          user_email: user_email,
+          allResources: newResource
 
-      };
+        };
 
-      res.render("main_resource", templateVars);
+        res.render("main_resource", templateVars);
 
-    })
+      })
+
+      .catch(error => console.log(error));
+
+  } else {
+
+    res.send("Please login or register to view requested page");
+    res.redirect("/index");
+
   }
 
 })
 
 
 // 1  GET  /resources/:resource_id
+
+router.get("/:resource_id", (req, res) => {
+
+  let user_email;
+  let resource_id = req.params.resource_id;
+  let resource_info;
+  let comments_info;
+  let likeState;
+
+  // Check if user is logged-in, otherwise redirect to index page
+  const user_id = req.session.user_id;
+  console.log("********** user_id = ", user_id);
+
+  if (user_id) {
+
+    databaseHelper.getUserByID(user_id)
+      .then(result => {
+        user_email = result.email;
+
+        return databaseHelper.getAllInfoSpecificResource(resource_id);
+
+      }).then(result => {
+        console.log('Result for getAllInfoSpecificResource ', result);
+
+        resource_info = result;
+        return databaseHelper.getCommentsForSpecificResource(resource_id);
+
+      }).then(result => {
+
+        comments_info = result;
+        console.log('Result for getCommentsForSpecificResource ', result);
+
+        return databaseHelper.getIsLikeValue(user_id, resource_id);
+
+      }).then(result => {
+        console.log('Result for getIsLikeValue ', result);
+
+        if (result.length === 0) {
+
+          likeState = false;
+
+        } else {
+
+          likeState = result[0].isLike;
+
+        }
+
+        console.log("Result for likeState is ", likeState);
+
+        const templateVars = {
+          user_email,
+          resource_id,
+          resource_info,
+          comments_info,
+          likeState
+        }
+
+        res.render("specific_resource", templateVars);
+
+      })
+
+  } else {
+
+    res.send("Please login or register to view requested page");
+    // res.redirect("/index");
+
+  }
+});
 
 
 

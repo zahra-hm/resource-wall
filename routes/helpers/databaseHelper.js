@@ -96,6 +96,25 @@ const getAllResourcesAvgRating = function () {
 };
 
 
+const getAllInfoSpecificResource = function (resource_id) {
+
+  return pool.query(`
+
+  SELECT users.username, resources.*, ROUND(AVG(resource_reviews.rating),1) AS avg
+  FROM resources
+  JOIN users ON users.id = resources.owner_id
+  JOIN resource_reviews ON resource_reviews.resource_id = resources.id
+  WHERE resources.id = $1
+  GROUP BY resources.id, users.username;`, [resource_id])
+    .then(res => {
+
+      // console.log("res.rows is, ", res.rows);
+      return res.rows[0];
+    })
+    .catch(err => console.log(err));
+
+};
+
 
 // getUserResourcesByUserID
 // Return resources belong to the user (order by newest to oldest)
@@ -392,7 +411,7 @@ const updateUserName = function (user_ID, username) {
   .catch(err => console.log(err));
 }
 
-module.exports = {getAllResourcesAvgRating, addNewComment, getResourceReviewsByResourceID,getResourceReviewsByOwnerID, addNewReviewIsRating, addNewResources, getCommentsForSpecificResource, getSpecificResourceByID,getUserByEmail, addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName};
+module.exports = {getAllInfoSpecificResource, getAllResourcesAvgRating, addNewComment, getResourceReviewsByResourceID,getResourceReviewsByOwnerID, addNewReviewIsRating, addNewResources, getCommentsForSpecificResource, getSpecificResourceByID,getUserByEmail, addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName};
 
 
 

@@ -78,6 +78,7 @@ app.get("/addResource", (req, res) => {
   res.render('new_resource', templateVars);
  });
 
+
 //  app.get("/login", (req, res) => {
 //   //res.send("I'm app.get /");
 //   //req.session.user_id = "1";
@@ -93,8 +94,13 @@ app.get("/addResource", (req, res) => {
 //   const user = databaseHelper.getUserByEmail(user_email);
 //   if (password === user.password) {
 //     res.redirect("/resources");
-//   } 
+//   }
 // })
+
+
+// app.get("/resources/:resource_id", (req, res) => {
+//   res.render("specific_resource");
+// });
 
 
 // app.get("/users/", (req, res) => {

@@ -13,73 +13,55 @@
   </header>
   <div id="login">
     <h3 class="text-center text-danger pt-5">RESOURCE WALL</h3>
-    <form id="new-resource" action="/resources/search?=:query" method="POST">
+    <!-- <form id="new-resource" action="/resources/search?=:query" method="POST"> -->
 
-      <div class="search-area">
-        <div class="input-box">
-          <input class="textbox" type="text" name="text" id="resouce-text" placeholder="Search..."></input>
-          <button type="submit" class="btn btn-warning">Search</button>
-        </div>
-      </div>
-    </form>
     <div class="main-resource">
 
-      <% for(let x = 0; x < allResources.length ; x++){ %>
       <article class="resource" style="padding: 20px">
 
         <div class="info">
           <div>
-            <a class="resourceTitleTag" href=<%= allResources[x].url %>> <%= allResources[x].title%></a>
+            <a class="resourceTitleTag" href=<%= resource_info.url %>> <%= resource_info.title%></a>
           </div>
-          <span class="name"><b>Creator: </b><%= allResources[x].username %><span>
-              <span class="rating"><b> Avg Rating: </b><%= allResources[x].avg%></span>
+          <span class="name"><b>Creator: </b><%= resource_info.username %><span>
+              <span class="rating"><b> Avg Rating: </b><%= resource_info.avg%></span>
         </div>
 
-        <p class="resource-data"><%= allResources[x].description %></p>
+        <p class="resource-data"><%= resource_info.description %></p>
         <footer class="footer">
-          <span class="date"><b>Date Created:</b><%= allResources[x].created_at%></span>
+          <span class="date"><b>Date Created:</b><%= resource_info.created_at%></span>
         </footer>
+      </article>
+    </div>
+
+    <article class="comment" style="padding: 20px">
+
+      <div class="new-comment" style="border-style: dotted">
+        <form action="/resources" method="POST"></form>
+        <label>Add new comment:</label>
+        <input class="comment-box" type="text" name="newComment" placeholder="Enter comment...">
+        <button type="submit" class="btn-addComment">Submit</button>
+      </div>
+
+    </article>
+
+    <!-- Add for loop to display old comments -->
+    <div class="old-comment" style="border-style: dotted">
+
+      <% for(let x = 0; x < comments_info.length ; x++){ %>
+      <article class="comment" style="padding: 20px">
+
+        <div class="info">
+          <span class="name"><%= comments_info[x].username %><span>
+              <span class="date"><b>Date Created:</b><%= comments_info[x].created_at%></span>
+              <p class="comment-data"><%= comments_info[x].comment %></p>
+        </div>
+
       </article>
       <% } %>
     </div>
 
+
   </div>
-
-
-  <a href="/resources"></a>
-  <div class="specific-resource" style="border-style: dotted">
-    <h2 class="title-link">PLACEHODER FOR title/link</h2>
-    <div class="avg-rating">Rating: #</div>
-    <div class="specific-resource-desc">PLACEHOLDER FOR description PLACEHOLDER FOR description PLACEHOLDER FOR
-      description </div>
-    <div class="submit-rate">
-      <h5>Rate: </h5>
-      <input type="number" name="rate">
-      <button type="submit">Submit rate</button>
-    </div>
-    <h5>Date posted: </h5>
-    <button>
-      <i class="fas fa-heart"></i>
-    </button>
-  </div>
-
-  <div class="new-comment" style="border-style: dotted">
-    <form action="/resources" method="POST">></form>
-    <label>Add new comment:</label>
-    <input class="comment-box" type="text" name="newComment" placeholder="Enter comment...">
-    <button type="submit" class="btn-addComment">Submit</button>
-  </div>
-
-  <!-- Add for loop to display old comments -->
-  <div class="old-comment" style="border-style: dotted">
-    <h4>PLACEHOLDER FOR User name</h4>
-    <h5>PLACEHOLDER FOR Created at: date</h5>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua.
-      Posuere lorem ipsum dolor sit amet. Massa massa ultricies mi quis hendrerit dolor.</p>
-  </div>
-
-
-
 
 </body>
