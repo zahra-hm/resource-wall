@@ -258,15 +258,20 @@ const getIsLikeValue = function (user_ID, resource_ID ) {
 
 // addNewResources
 
-const addNewResources = function (owner_id, category_id, title, url, description, created_at) {
+const addNewResources = function (owner_id, category_id, title, url, description) {
 
   return pool.query(`
 
-  INSERT INTO resources (owner_id, category_id, title, url, description, created_at)
-  VALUES ($1, $2, $3, $4, $5, $6)
-  RETURNING *;`, [owner_id, category_id, title, url, description, created_at])
-    .then(res => res.rows[0])
-    .catch(err => console.log(err));
+  INSERT INTO resources (owner_id, category_id, title, url, description)
+  VALUES ($1, $2, $3, $4, $5)
+  RETURNING *;`, [owner_id, category_id, title, url, description])
+    .then(res => {
+      console.log('Inside DB, res.rows[0] = ', res.rows[0]);
+      return res.rows[0]}
+      )
+    .catch(err => {
+      console.log("CATCH ", err);
+    });
 }
 
 // addNewReviewIsRating
