@@ -16,15 +16,12 @@ router.get("/", (req, res) => {
 });
 
 
+
+
+
 /////////////////////////////////////////////////////////
 // GET	/categories/:category_name/resources	show resources filtered by category	chosen category from pull down menu in nav bar
 /////////////////////////////////////////////////////////////////////////////////////////////
-router.get("/:a/:b/:c", (req,res) => {
-
-  console.log(req.params);
-  res.send(req.params);
-});
-
 
 router.get("/:category_id/resources", (req, res) => {
   // check if user is logged in and if yes, otherwise redirect to index page with message.
