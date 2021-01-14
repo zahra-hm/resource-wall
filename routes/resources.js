@@ -6,9 +6,13 @@ const text = require("body-parser/lib/types/text");
 const saltRounds = 10;
 
 
+// 2	GET	/resources
+// Show Main page with all resources / filtered Main page	opens after successful log in or register, click on logo
+
 router.get("/", (req, res) => {
   // check if user is logged in and if yes, otherwise redirect to index page with message.
   let user_id = req.session.user_id;
+  // let user_id = 2;
 
   if(user_id) {
 
@@ -30,13 +34,14 @@ router.get("/", (req, res) => {
       // send the templateVars with all the resources inside ejs template.
 
     }).then(result => {
-
+      //res.send(result);
      // console.log("Result is: ", result);
       //let avgRating = result;
       allResources = result;
 
       //resourceDate = allResources.created_at;
 
+      // console.log("resourceDate is: ", resourceDate);
 
       let templateVars = {
         user_email: user_email,
@@ -99,13 +104,10 @@ router.post("/search", (req, res) => {
       res.render("main_resource", templateVars);
 
     });
-
-  } else {
+  }else {
     res.send("Please login or register to view requested page");
     console.log("Please login or register to view requested page");
-    //res.redirect("/index");
   }
-
 
 });
 
@@ -113,7 +115,7 @@ router.post("/search", (req, res) => {
 // 1	GET	 /resources/new
 // Show Add New Resource page only for loggin-in user
 
-router.get("/resources/new", (req, res) => {
+router.get("/new", (req, res) => {
 
   let user_email;
 
@@ -123,13 +125,13 @@ router.get("/resources/new", (req, res) => {
   if (user_id) {
 
     databaseHelper.getUserByID(user_id)
-      .then(result => {
+    .then(result => {
 
         user_email = result.email;
 
         const templateVars = { user_email: user_email };
         res.render("new_resource", templateVars);
-      })
+    });
 
   } else {
 
@@ -146,7 +148,7 @@ router.get("/resources/new", (req, res) => {
 
 router.post("/", (req, res) => {
 
-  let user_email;
+
   const title = req.body.title;
   const category_id = req.body.category_id;
   const url = req.body.url;
@@ -156,44 +158,19 @@ router.post("/", (req, res) => {
   const owner_id = user_id;
   if (user_id) {
 
-    databaseHelper.getUserByID(user_id)
-      .then(result => {
-        user_email = result.email;
+    databaseHelper.addNewResources(
+      owner_id,
+      category_id,
+      title,
+      url,
+      description
+    ).then(result => {
 
-        if (result) {
-          const result2 = databaseHelper.addNewResources(
-            owner_id,
-            category_id,
-            title,
-            url,
-            description
-          );
-          return result2;
-
-        }
-        // console.log("******* RESULT IS UNDEFINED WHY????????????????");
-      })
-      .then(result => {
-        // console.log('Result addNewResources is: ', result);
-        const newResource = result;
-
-        let templateVars = {
-          user_email: user_email,
-          allResources: newResource
-
-        };
-
-        res.render("main_resource", templateVars);
-
-      })
-
-      .catch(error => console.log(error));
-
+      res.redirect("/resources");
+    });
   } else {
 
     res.send("Please login or register to view requested page");
-    res.redirect("/index");
-
   }
 });
 
@@ -220,20 +197,23 @@ router.get("/:resource_id", (req, res) => {
 
         return databaseHelper.getAllInfoSpecificResource(resource_id);
 
-      }).then(result => {
+      })
+      .then(result => {
         console.log('Result for getAllInfoSpecificResource ', result);
 
         resource_info = result;
         return databaseHelper.getCommentsForSpecificResource(resource_id);
 
-      }).then(result => {
+      })
+      .then(result => {
 
         comments_info = result;
         console.log('Result for getCommentsForSpecificResource ', result);
 
         return databaseHelper.getIsLikeValue(user_id, resource_id);
 
-      }).then(result => {
+      })
+      .then(result => {
         console.log('Result for getIsLikeValue ', result);
 
 

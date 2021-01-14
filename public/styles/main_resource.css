@@ -1,19 +1,41 @@
+
 .main-resource {
   margin-right: 90px;
   margin-left: 90px;
-  background-color: rgb(253, 210, 129);
+  background-color: rgb(223, 223, 143);
   padding: 10px;
-  border:  5px solid brown
+  border:  2px solid green;
+}
+
+.resourceTitleTag {
+  color: darkblue;
+  font-size: 14px;
+}
+.resource:hover {
+  background-color: rgb(172, 172, 70);
+  border-color: purple;
+}
+
+.view-resource:hover {
+  color: red;
 }
 
 .footer {
   padding:10px;
-  border-top: 5px solid rgb(70, 68, 68)
+  border-bottom: 5px solid green;
+  border-top: 1px solid rgb(214, 116, 35);
+  border: padding 10px;
 }
 
 .info {
 padding:10px;
-border-bottom: 5px solid rgb(70, 68, 68)
+border-bottom: 1px solid rgb(214, 116, 35);
+
+}
+
+.date {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .search-area {

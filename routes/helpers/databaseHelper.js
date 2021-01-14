@@ -83,7 +83,7 @@ const getAllResourcesAvgRating = function () {
   SELECT users.username, resources.*, ROUND(AVG(resource_reviews.rating),1) AS avg
   FROM resources
   JOIN users ON users.id = resources.owner_id
-  JOIN resource_reviews ON resource_reviews.resource_id = resources.id
+  FULL OUTER JOIN resource_reviews ON resource_reviews.resource_id = resources.id
   GROUP BY resources.id, users.username
   ORDER BY created_at DESC;`)
     .then(res => {

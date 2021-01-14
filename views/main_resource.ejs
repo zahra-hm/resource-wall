@@ -1,5 +1,4 @@
 <head>
-
 	<title>Bootstrap 4 Drop Down Menu</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -10,7 +9,9 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <!-- App CSS -->
-<!-- <link rel="stylesheet" href="styles/main_resource.css" type="text/css" /> -->
+
+
+<link rel="stylesheet" href="styles/main_resource.css" type="text/css" />
 
 <body>
     <header>
@@ -29,14 +30,19 @@
 
       </form>
       <div class="main-resource">
+
         <% for(let x = 0; x < allResources.length ; x++){ %>
+
           <article class="resource" style ="padding: 20px">
             <div class="info">
-              <div>
+              <div class="title-resource">
                 <a class = "resourceTitleTag" href=<%= allResources[x].url %>> <%= allResources[x].title%></a>
+                <a class="btn btn-outline-success" href="/resources/<%= allResources[x].id %>">View Resource!</a>
               </div>
+              <div class="avg-rating">
                 <span class="name"><b>Creator: </b><%= allResources[x].username %><span>
                 <span class="rating"><b>  Avg Rating: </b><%= allResources[x].avg%></span>
+              </div>
             </div>
             <p class="resource-data"><%= allResources[x].description %></p>
             <footer class="footer">

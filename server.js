@@ -15,6 +15,7 @@ const app = express();
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
 
+const databaseHelper = require('./routes/helpers/databaseHelper');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -67,7 +68,7 @@ app.use("/profile", profileRouter);
 app.get("/index", (req, res) => {
  //res.send("I'm app.get /");
  //req.session.user_id = "1";
- req.session.user_id = "1";
+ //req.session.user_id = "1";
   const templateVars = {};
  res.render('index', templateVars);
 });
@@ -80,29 +81,33 @@ app.get("/addResource", (req, res) => {
  });
 
 
-//  app.get("/login", (req, res) => {
-//   //res.send("I'm app.get /");
-//   //req.session.user_id = "1";
-//   //  const templateVars = {user_email: "hello@gmail.com"};
-//   res.render('login');
-//  });
+app.get("/login", (req, res) => {
+  const user_id = req.session.user_id;
+  if (user_id) {
+    res.redirect("/resources");
+  } else {
+    const templateVars = {};
+    res.render("login", templateVars);
+  }
+});
 
-//  router.post("/login", (req, res) => {
-//   console.log("INSIDE POST LOGIN")
-//   const user_email = req.body.email;
-//   const password = req.body.password;
-
-//   const user = databaseHelper.getUserByEmail(user_email);
-//   if (password === user.password) {
-//     res.redirect("/resources");
-//   }
-// })
-
-
-// app.get("/resources/:resource_id", (req, res) => {
-//   res.render("specific_resource");
-// });
-
+//1 POST /resourcewall/login , Check username and password, only allow valid user to login
+app.post("/login", (req, res) => {
+  const user_email = req.body.email;
+  const password = req.body.password;
+  databaseHelper.getUserByEmail(user_email)
+  .then(result => {
+    if (result && result.password === password) {
+      req.session.user_id = result.id;
+      res.redirect("/resources");
+    } else {
+      res.send("Your email or password is invalid");
+    }
+  })
+  .catch(error => {
+      console.log(err);
+  })
+});
 
 // app.get("/users/", (req, res) => {
 //   res.send("I'm app.get /users/");

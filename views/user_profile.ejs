@@ -20,6 +20,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <!-- App css -->
+  <link rel="stylesheet" href="styles/user_profile.css" type="text/css" />
 </head>
 
 <body>
@@ -31,20 +34,26 @@
     <h1>Profile Page</h1>
     <div class="current-profile">
       <!-- Placeholder for username and profile image, MUST fetch from DB -->
-      <span class='current-username'>Username</span>
-      <img class="profile-image" src="https://icon-library.net/images/generic-user-icon/generic-user-icon-10.jpg">
+      <!-- <span class='current-username'>Username</span> -->
+      <img class="rounded float-left" src="https://icon-library.net/images/generic-user-icon/generic-user-icon-10.jpg">
     </div>
 
     <div class="update-profile">
-      <span class="update-username">Username:</span>
-      <input type="text" name="newUsername">
-      <button type="submit">Update</button>
-      <span class="email">Email:</span>
-      <!-- Placeholder for email address, MUST fetch from DB -->
-      <span>email@email.com</span>
-      <span>Password:</span>
-      <!-- Placeholder for password, MUST fetch from DB -->
-      <span>password</span>
+      <form class="update-username" action="/profile/<%= user_id %>" method="POST">Username:
+      <div class="container">
+        <input type="text" name="username">
+        <button type="submit">Update</button>
+        </form>
+        <span class="username_display">Username:</span>
+        <!-- Placeholder for email address, MUST fetch from DB -->
+        <span><%= username %></span>
+        <span class="email">Email:</span>
+        <!-- Placeholder for email address, MUST fetch from DB -->
+        <span><%= user_email %></span>
+        <span>Password:</span>
+        <!-- Placeholder for password, MUST fetch from DB -->
+        <span>********</span>
+      </div>
     </div>
   </div>
 
