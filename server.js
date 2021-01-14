@@ -15,6 +15,7 @@ const app = express();
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
 
+const databaseHelper = require('./routes/helpers/databaseHelper');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -77,6 +78,34 @@ app.get("/addResource", (req, res) => {
    const templateVars = {user_email: "hello@gmail.com"};
   res.render('new_resource', templateVars);
  });
+
+app.get("/resourcewall/login", (req, res) => {
+  const user_id = req.session.user_id;
+  if (user_id) {
+    res.redirect("/resources");
+  } else {
+    const templateVars = {};
+    res.render("login", templateVars);
+  }
+});
+
+//1 POST /resourcewall/login , Check username and password, only allow valid user to login
+app.post("/resourcewall/login", (req, res) => {
+  const user_email = req.body.email;
+  const password = req.body.password;
+  databaseHelper.getUserByEmail(user_email)
+  .then(result => {
+    if (result && result.password === password) {
+      req.session.user_id = result.id;
+      res.redirect("/resources");
+    } else {
+      res.send("Your email or password is invalid");
+    }
+  })
+  .catch(error => {
+      console.log(err);
+  })
+});
 // app.get("/users/", (req, res) => {
 //   res.send("I'm app.get /users/");
 // });
