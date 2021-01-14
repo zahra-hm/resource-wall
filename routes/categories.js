@@ -26,7 +26,6 @@ router.get("/:a/:b/:c", (req,res) => {
 });
 
 
-
 router.get("/:category_id/resources", (req, res) => {
   // check if user is logged in and if yes, otherwise redirect to index page with message.
   let user_id = req.session.user_id;

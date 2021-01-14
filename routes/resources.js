@@ -6,15 +6,176 @@ const text = require("body-parser/lib/types/text");
 const saltRounds = 10;
 
 
-/*
-router.get("/", (req, res) => {
-  databaseHelper.getAllResources().then(result => {
-  req.session.resourceCookie = "Resources";
-  res.send(result);
-  })
 
-});
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // 2	GET	/resources
 // Show Main page with all resources /	opens after successful log in or register, click on logo
@@ -37,7 +198,7 @@ router.get("/", (req, res) => {
 
       //res.send(result);
 
-      console.log('result is: ', result);
+     // console.log('result is: ', result);
       // get all resources from the user
       return databaseHelper.getAllResourcesAvgRating();
 
@@ -45,7 +206,7 @@ router.get("/", (req, res) => {
 
     }).then(result => {
 
-      console.log("Result is: ", result);
+     // console.log("Result is: ", result);
       //let avgRating = result;
       allResources = result;
 
@@ -70,17 +231,17 @@ router.get("/", (req, res) => {
 
 });
 
-/*
-router.get("/resources/search", (req, res) => {
+
+router.post("/search", (req, res) => {
   // check if user is logged in and if yes, otherwise redirect to index page with message.
   let user_id = req.session.user_id;
 
   if(user_id) {
 
-    let searchInput = req.body.
+    let searchInput = req.body.searchBar;
     let user_email;
     let allResources;
-
+    console.log("SEARCH INPUT IS: ", searchInput);
     // need to get email to display the logged-in user for the element id="navbarDropdown" on ejs for main_resource.ejs
     databaseHelper.getUserByID(user_id)
     .then(result => {
@@ -89,9 +250,9 @@ router.get("/resources/search", (req, res) => {
 
       //res.send(result);
 
-      console.log('result is: ', result);
+      //console.log('result is: ', result);
       // get all resources from the user
-      return databaseHelper.getAllResourcesAvgRating();
+      return databaseHelper.getAllResourcesMatchingSearch(searchInput);
 
       // send the templateVars with all the resources inside ejs template.
 
@@ -122,10 +283,6 @@ router.get("/resources/search", (req, res) => {
 
 
 });
-
-*/
-
-
 
 
 

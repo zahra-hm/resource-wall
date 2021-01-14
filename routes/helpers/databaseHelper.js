@@ -95,8 +95,28 @@ const getAllResourcesAvgRating = function () {
 
 };
 
+const getAllResourcesMatchingSearch = function (searchInput) {
+  //searchInput = 'ball';
+  return pool.query(`
 
+  SELECT users.username, resources.*, ROUND(AVG(resource_reviews.rating),1) AS avg
+  FROM resources
+  JOIN users ON users.id = resources.owner_id
+  JOIN resource_reviews ON resource_reviews.resource_id = resources.id
+  WHERE resources.title LIKE $1
+  GROUP BY resources.id, users.username
+  ORDER BY created_at DESC;`, [`%${searchInput}%`])
+    .then(res => {
+      console.log("res is: ", res.rows);
+      // console.log("res.rows is, ", res.rows);
+      return res.rows;
+    })
+    .catch(err => console.log(err));
 
+};
+//'%$${searchInput}%`
+//'%$`${word}`%'
+//`%`$${searchInput}`%`
 // getUserResourcesByUserID
 // Return resources belong to the user (order by newest to oldest)
 
@@ -387,7 +407,7 @@ const updateUserName = function (user_ID, username) {
   .catch(err => console.log(err));
 }
 
-module.exports = {getAllResourcesAvgRating, addNewComment, getResourceReviewsByResourceID,getResourceReviewsByOwnerID, addNewReviewIsRating, addNewResources, getCommentsForSpecificResource, getSpecificResourceByID,getUserByEmail, addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName};
+module.exports = {getAllResourcesMatchingSearch , getAllResourcesAvgRating, addNewComment, getResourceReviewsByResourceID,getResourceReviewsByOwnerID, addNewReviewIsRating, addNewResources, getCommentsForSpecificResource, getSpecificResourceByID,getUserByEmail, addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName};
 
 
 
