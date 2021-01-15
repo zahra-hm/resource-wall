@@ -14,45 +14,51 @@ router.get("/", (req, res) => {
   let user_id = req.session.user_id;
   // let user_id = 2;
 
-  if(user_id) {
+  if (user_id) {
 
     let user_email;
     let allResources;
 
     // need to get email to display the logged-in user for the element id="navbarDropdown" on ejs for main_resource.ejs
     databaseHelper.getUserByID(user_id)
-    .then(result => {
+      .then(result => {
 
-      user_email = result.email;
+        user_email = result.email;
 
-      //res.send(result);
+        //res.send(result);
 
-     // console.log('result is: ', result);
-      // get all resources from the user
-      return databaseHelper.getAllResourcesAvgRating();
+        // console.log('result is: ', result);
+        // get all resources from the user
+        return databaseHelper.getAllResourcesAvgRating();
 
-      // send the templateVars with all the resources inside ejs template.
+        // send the templateVars with all the resources inside ejs template.
 
-    }).then(result => {
-      //res.send(result);
-     // console.log("Result is: ", result);
-      //let avgRating = result;
-      allResources = result;
+      }).then(result => {
+        //res.send(result);
+        // console.log("Result is: ", result);
+        //let avgRating = result;
+        allResources = result;
 
-      //resourceDate = allResources.created_at;
+        //resourceDate = allResources.created_at;
 
-      // console.log("resourceDate is: ", resourceDate);
+        // console.log("resourceDate is: ", resourceDate);
 
+<<<<<<< HEAD
       let templateVars = {
         user_email: user_email,
         allResources: allResources,
         userId: user_id
+=======
+        let templateVars = {
+          user_email: user_email,
+          allResources: allResources
+>>>>>>> specificResource-LikeRate
 
-      };
+        };
 
-      res.render("main_resource", templateVars);
+        res.render("main_resource", templateVars);
 
-    });
+      });
 
   } else {
     console.log("Please login or register to view requested page");
@@ -67,7 +73,7 @@ router.post("/search", (req, res) => {
   // check if user is logged in and if yes, otherwise redirect to index page with message.
   let user_id = req.session.user_id;
 
-  if(user_id) {
+  if (user_id) {
 
     let searchInput = req.body.searchBar;
     let user_email;
@@ -75,38 +81,44 @@ router.post("/search", (req, res) => {
     console.log("SEARCH INPUT IS: ", searchInput);
     // need to get email to display the logged-in user for the element id="navbarDropdown" on ejs for main_resource.ejs
     databaseHelper.getUserByID(user_id)
-    .then(result => {
+      .then(result => {
 
-      user_email = result.email;
+        user_email = result.email;
 
-      //res.send(result);
+        //res.send(result);
 
-      //console.log('result is: ', result);
-      // get all resources from the user
-      return databaseHelper.getAllResourcesMatchingSearch(searchInput);
+        //console.log('result is: ', result);
+        // get all resources from the user
+        return databaseHelper.getAllResourcesMatchingSearch(searchInput);
 
-      // send the templateVars with all the resources inside ejs template.
+        // send the templateVars with all the resources inside ejs template.
 
-    }).then(result => {
+      }).then(result => {
 
-      console.log("Result is: ", result);
-      //let avgRating = result;
-      allResources = result;
+        console.log("Result is: ", result);
+        //let avgRating = result;
+        allResources = result;
 
-      //resourceDate = allResources.created_at;
+        //resourceDate = allResources.created_at;
 
 
+<<<<<<< HEAD
       let templateVars = {
         user_email: user_email,
         allResources: allResources,
         userId: user_id
+=======
+        let templateVars = {
+          user_email: user_email,
+          allResources: allResources
+>>>>>>> specificResource-LikeRate
 
-      };
+        };
 
-      res.render("main_resource", templateVars);
+        res.render("main_resource", templateVars);
 
-    });
-  }else {
+      });
+  } else {
     res.send("Please login or register to view requested page");
     console.log("Please login or register to view requested page");
   }
@@ -114,7 +126,7 @@ router.post("/search", (req, res) => {
 });
 
 
-// 1	GET	 /resources/new
+// GET	  /resources/new
 // Show Add New Resource page only for loggin-in user
 
 router.get("/new", (req, res) => {
@@ -127,7 +139,7 @@ router.get("/new", (req, res) => {
   if (user_id) {
 
     databaseHelper.getUserByID(user_id)
-    .then(result => {
+      .then(result => {
 
         user_email = result.email;
 
@@ -137,7 +149,7 @@ router.get("/new", (req, res) => {
 
         };
         res.render("new_resource", templateVars);
-    });
+      });
 
   } else {
 
@@ -149,7 +161,7 @@ router.get("/new", (req, res) => {
 });
 
 
-// 1	POST	/resources
+// POST	  /resources
 // Only logged-in user can add new resource
 
 router.post("/", (req, res) => {
@@ -181,7 +193,8 @@ router.post("/", (req, res) => {
 });
 
 
-// 1  GET  /resources/:resource_id
+// GET  /resources/:resource_id
+// Show specific resource page when user selects a specific resource
 
 router.get("/:resource_id", (req, res) => {
 
@@ -251,9 +264,103 @@ router.get("/:resource_id", (req, res) => {
   } else {
 
     res.send("Please login or register to view requested page");
-    // res.redirect("/index");
 
   }
 });
+
+// POST  /resources/:resource_id/like
+// Set isLike to true/false on specific resource page
+
+router.post("/like", (req, res) => {
+
+  let resource_id = req.params.resource_id;
+  let resource_info;
+  let isLike;
+
+
+  const user_id = req.session.user_id;
+
+  if (user_id) {
+
+    // databaseHelper.getIsLikeValue(user_id, resource_id)
+    //   .then(result => {
+
+    //     console.log("Result for getIsLikeValue is ", result);
+
+    //     isLike_info = result;
+
+    //     return databaseHelper.setIsLikeValue
+    //   })
+  }
+
+});
+
+
+router.post("/rate", (req, res) => {
+  // check if user is logged in and if yes, otherwise redirect to index page with message.
+  let user_id = req.session.user_id;
+
+  if (user_id) {
+
+    let ratingInput = req.body.rating;
+    let user_email;
+    let allResources;
+    console.log("RATE INPUT IS: ", ratingInput);
+
+    databaseHelper.getUserByID(user_id)
+    .then(result => {
+      console.log("Result for getUserByID is ", result);
+    })
+
+    // need to get email to display the logged-in user for the element id="navbarDropdown" on ejs for main_resource.ejs
+  //   databaseHelper.getUserByID(user_id)
+  //     .then(result => {
+
+  //       user_email = result.email;
+
+  //       //res.send(result);
+
+  //       //console.log('result is: ', result);
+  //       // get all resources from the user
+  //       return databaseHelper.getAllResourcesMatchingSearch(searchInput);
+
+  //       // send the templateVars with all the resources inside ejs template.
+
+  //     }).then(result => {
+
+  //       console.log("Result is: ", result);
+  //       //let avgRating = result;
+  //       allResources = result;
+
+  //       //resourceDate = allResources.created_at;
+
+
+  //       let templateVars = {
+  //         user_email: user_email,
+  //         allResources: allResources
+
+  //       };
+
+  //       res.render("main_resource", templateVars);
+
+  //     });
+  // } else {
+  //   res.send("Please login or register to view requested page");
+  //   console.log("Please login or register to view requested page");
+  }
+
+});
+
+
+
+
+// POST  /resources/comments/new
+// Post new comment on specific resource page
+
+router.post("/resources/comments/new", (req, res) => {
+
+});
+
+
 
 module.exports = router;
