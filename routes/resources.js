@@ -181,6 +181,64 @@ router.post("/", (req, res) => {
 });
 
 
+router.get("/:resource_id/like", (req, res) => {
+
+  let resource_id = req.params.resource_id;
+  let resource_info;
+  let isLiked;
+
+
+  // const templateVars = { liked-value: }
+
+  // setIsLikeValue(user_ID, resource_ID, isLikeValue)
+
+  // res.render("specific_resource", templateVars)
+
+  const user_id = req.session.user_id;
+
+  if (user_id) {
+
+    databaseHelper.getIsLikeValue(4, 10)
+      .then(result => {
+
+        if (result.length === 0) {
+          console.log('RESULT IS: ');
+          console.log(result)
+          res.send("BELLOOO");
+        } else {
+          isLiked = result[0].islike;
+          if (isLiked) {
+            isLiked = false;
+          } else {
+            isLiked = true;
+          }
+          return databaseHelper.setIsLikeValue(user_id, resource_id, isLiked);
+        }
+      }).then(result => {
+        res.redirect(`/resources/${resource_id}`);
+
+      })
+
+
+
+    // databaseHelper.getIsLikeValue(user_id, resource_id)
+    //   .then(result => {
+
+    //     console.log("Result for getIsLikeValue is ", result);
+
+    //     isLike_info = result;
+
+    //     return databaseHelper.setIsLikeValue
+    //   })
+
+
+  } else {
+    res.send("Must log in to view!!");
+  }
+
+});
+
+
 // GET  /resources/:resource_id
 // Show specific resource page when user selects a specific resource
 
@@ -191,6 +249,7 @@ router.get("/:resource_id", (req, res) => {
   let resource_info;
   let comments_info;
   let likeState;
+  let likeOrNot;
 
   // Check if user is logged-in, otherwise redirect to index page
   const user_id = req.session.user_id;
@@ -201,19 +260,23 @@ router.get("/:resource_id", (req, res) => {
     databaseHelper.getUserByID(user_id)
       .then(result => {
         user_email = result.email;
+        console.log("ONE");
+        console.log(result);
 
         return databaseHelper.getAllInfoSpecificResource(resource_id);
 
       })
       .then(result => {
         // console.log('Result for getAllInfoSpecificResource ', result);
-
+        console.log("TWO");
+        console.log(result);
         resource_info = result;
         return databaseHelper.getCommentsForSpecificResource(resource_id);
 
       })
       .then(result => {
-
+        console.log("THREE");
+        console.log(result);
         comments_info = result;
         // console.log('Result for getCommentsForSpecificResource ', result);
 
@@ -222,7 +285,8 @@ router.get("/:resource_id", (req, res) => {
       })
       .then(result => {
         // console.log('Result for getIsLikeValue ', result);
-
+        console.log("FOUR");
+        console.log(result);
 
         if (result.length === 0) {
 
@@ -242,7 +306,8 @@ router.get("/:resource_id", (req, res) => {
           resource_info,
           comments_info,
           likeState,
-          userId: user_id
+          userId: user_id,
+          likeOrNot
         }
 
         res.render("specific_resource", templateVars);
@@ -372,8 +437,29 @@ const setRatingValue = function (user_ID, resource_ID, ratingValue ) {
 // POST  /resources/comments/new
 // Post new comment on specific resource page
 
-router.post("/resources/comments/new", (req, res) => {
+router.post("/comments/:resource_id/new", (req, res) => {
 
+  let resource_id = req.params.resource_id;
+  let comment = req.body.newComment;
+
+  const user_id = req.session.user_id;
+
+  if (user_id) {
+
+    databaseHelper.getUserByID(user_id)
+      .then(result => {
+
+        return databaseHelper.addNewComment(user_id, resource_id, '2004-10-19 10:23:54', comment);
+
+      })
+      .then(result => {
+
+        res.redirect(`/resources/${resource_id}`);
+
+      })
+      .catch(error => console.log(error));
+
+  }
 });
 
 

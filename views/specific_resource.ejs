@@ -55,7 +55,7 @@
     </div>
     <article class="comment" style="padding: 20px">
       <div class="new-comment" style="border-style: dotted">
-        <form action="/resources" method="POST"></form>
+        <form action="resources/comments/<%=resource_id%>/new" method="POST"></form>
         <label>Add new comment:</label>
         <input class="comment-box" type="text" name="newComment" placeholder="Enter comment...">
         <button type="submit" class="btn-addComment">Submit</button>
