@@ -21,11 +21,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-  <!-- App css -->
-  <link rel="stylesheet" href="styles/user_profile.css" type="text/css" />
+
 </head>
 
-<body>
+
+<!-- App CSS -->
+<link rel="stylesheet" href="styles/user_profile.css" type="text/css" />
+
+
+<body style="background-color: rgb(223, 223, 143)">
   <header>
     <%- include('partials/_header') %>
   </header>
@@ -42,6 +46,7 @@
       <form class="update-username" action="/profile/<%= user_id %>" method="POST">Username:
       <div class="container">
         <input type="text" name="username">
+
         <button type="submit">Update</button>
         </form>
         <span class="username_display">Username:</span>

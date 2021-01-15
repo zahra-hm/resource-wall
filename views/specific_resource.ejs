@@ -11,12 +11,14 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
     integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
+  <link rel="stylesheet" href="/styles/mainresource.css" type="text/css" />
+
 </head>
 <!------ Include the above in your HEAD tag ---------->
 <!-- App CSS -->
 <!-- <link rel="stylesheet" href="styles/main_resource.css" type="text/css" /> -->
 
-<body>
+<body style="background-color:  rgb(223, 223, 143);">
   <header>
     <%- include('partials/_header') %>
   </header>
@@ -55,10 +57,11 @@
     </div>
     <article class="comment" style="padding: 20px">
       <div class="new-comment" style="border-style: dotted">
-        <form action="/resources" method="POST"></form>
-        <label>Add new comment:</label>
-        <input class="comment-box" type="text" name="newComment" placeholder="Enter comment...">
-        <button type="submit" class="btn-addComment">Submit</button>
+        <form action="/resources/comments/<%=resource_id%>/new" method="POST">
+          <label>Add new comment:</label>
+          <input class="comment-box" type="text" name="newComment" placeholder="Enter comment...">
+          <button type="submit" class="btn-addComment">Submit</button>
+        </form>
       </div>
     </article>
     <div class="old-comment" style="border-style: dotted">
