@@ -169,10 +169,10 @@ const getResourceReviewsByUserID = function (userID) {
     WHERE resource_reviews.user_id = $1 AND resource_reviews.isLike = true) AS Derived_Table
     JOIN resource_reviews ON
         Derived_Table.id = resource_reviews.resource_id GROUP BY Derived_Table.id, Derived_Table.owner_id, Derived_Table.category_id, Derived_Table.title, Derived_Table.url, Derived_Table.description, Derived_Table.created_at;
-     `, [userID])
+    `, [userID])
     .then(res => {
       console.log("res.rows is, ", res.rows);
-      if (res.rows[0]) {
+      if (res.rows) {
 
        // console.log("res.rows is, ", res.rows);
         return res.rows;
