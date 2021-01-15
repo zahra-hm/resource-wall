@@ -4,10 +4,18 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    type="text/css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
 </head>
 <!------ Include the above in your HEAD tag ---------->
 <!-- App CSS -->
 <!-- <link rel="stylesheet" href="styles/main_resource.css" type="text/css" /> -->
+
 <body>
   <header>
     <%- include('partials/_header') %>
@@ -24,8 +32,27 @@
               <span class="rating"><b> Avg Rating: </b><%= resource_info.avg%></span>
         </div>
         <p class="resource-data"><%= resource_info.description %></p>
+
         <footer class="footer">
+
+          <div class="enter-rating">
+            <form action="/resources/:resource_id/rate" method="POST"></form>
+            <label>Rating:</label>
+            <input class="rating-box" type="text" name="rating" placeholder="">
+            <button type="submit rating" class="btn-addRating">Submit</button>
+          </div>
+
           <span class="date"><b>Date Created:</b><%= resource_info.created_at%></span>
+
+          <div class="is-like">
+            <form action="/resources/:resource_id/Like" method="POST"></form>
+            <!-- Has to change   i class="fas fa-thumbs-up"    to a button -->
+            <button type="submit" class="btn-like">Like<i class="fas fa-thumbs-up"></i></button>
+
+
+
+          </div>
+
         </footer>
       </article>
     </div>
