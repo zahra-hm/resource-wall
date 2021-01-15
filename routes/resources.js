@@ -43,16 +43,10 @@ router.get("/", (req, res) => {
 
         // console.log("resourceDate is: ", resourceDate);
 
-<<<<<<< HEAD
-      let templateVars = {
-        user_email: user_email,
-        allResources: allResources,
-        userId: user_id
-=======
         let templateVars = {
           user_email: user_email,
-          allResources: allResources
->>>>>>> specificResource-LikeRate
+          allResources: allResources,
+          userId: user_id
 
         };
 
@@ -102,16 +96,10 @@ router.post("/search", (req, res) => {
         //resourceDate = allResources.created_at;
 
 
-<<<<<<< HEAD
-      let templateVars = {
-        user_email: user_email,
-        allResources: allResources,
-        userId: user_id
-=======
         let templateVars = {
           user_email: user_email,
-          allResources: allResources
->>>>>>> specificResource-LikeRate
+          allResources: allResources,
+          userId: user_id
 
         };
 
@@ -206,7 +194,7 @@ router.get("/:resource_id", (req, res) => {
 
   // Check if user is logged-in, otherwise redirect to index page
   const user_id = req.session.user_id;
-  console.log("********** user_id = ", user_id);
+  // console.log("********** user_id = ", user_id);
 
   if (user_id) {
 
@@ -218,7 +206,7 @@ router.get("/:resource_id", (req, res) => {
 
       })
       .then(result => {
-        console.log('Result for getAllInfoSpecificResource ', result);
+        // console.log('Result for getAllInfoSpecificResource ', result);
 
         resource_info = result;
         return databaseHelper.getCommentsForSpecificResource(resource_id);
@@ -227,13 +215,13 @@ router.get("/:resource_id", (req, res) => {
       .then(result => {
 
         comments_info = result;
-        console.log('Result for getCommentsForSpecificResource ', result);
+        // console.log('Result for getCommentsForSpecificResource ', result);
 
         return databaseHelper.getIsLikeValue(user_id, resource_id);
 
       })
       .then(result => {
-        console.log('Result for getIsLikeValue ', result);
+        // console.log('Result for getIsLikeValue ', result);
 
 
         if (result.length === 0) {
@@ -271,85 +259,95 @@ router.get("/:resource_id", (req, res) => {
 // POST  /resources/:resource_id/like
 // Set isLike to true/false on specific resource page
 
-router.post("/like", (req, res) => {
+// router.post("/like", (req, res) => {
 
-  let resource_id = req.params.resource_id;
-  let resource_info;
-  let isLike;
+//   let resource_id = req.params.resource_id;
+//   let resource_info;
+//   let isLike;
 
 
-  const user_id = req.session.user_id;
+//   const user_id = req.session.user_id;
 
-  if (user_id) {
+//   if (user_id) {
 
-    // databaseHelper.getIsLikeValue(user_id, resource_id)
-    //   .then(result => {
+//     // databaseHelper.getIsLikeValue(user_id, resource_id)
+//     //   .then(result => {
 
-    //     console.log("Result for getIsLikeValue is ", result);
+//     //     console.log("Result for getIsLikeValue is ", result);
 
-    //     isLike_info = result;
+//     //     isLike_info = result;
 
-    //     return databaseHelper.setIsLikeValue
-    //   })
-  }
+//     //     return databaseHelper.setIsLikeValue
+//     //   })
+//   }
 
-});
+// });
 
 
 router.post("/rate", (req, res) => {
-  // check if user is logged in and if yes, otherwise redirect to index page with message.
-  let user_id = req.session.user_id;
 
+  let ratingInput = req.body.rating;
+  resource_id = req.params.resource_id;
+  let user_email;
+  let resource_id;
+  let ratingValue;
+
+  console.log("resource_id is: ", resource_id);
+  console.log("RATE INPUT IS: ", ratingInput);
+
+  // check if user is logged in and if yes, otherwise redirect to index page with message.
+  const user_id = req.session.user_id;
+
+  //
   if (user_id) {
 
-    let ratingInput = req.body.rating;
-    let user_email;
-    let allResources;
-    console.log("RATE INPUT IS: ", ratingInput);
-
     databaseHelper.getUserByID(user_id)
-    .then(result => {
-      console.log("Result for getUserByID is ", result);
-    })
+      .then(result => {
 
-    // need to get email to display the logged-in user for the element id="navbarDropdown" on ejs for main_resource.ejs
-  //   databaseHelper.getUserByID(user_id)
-  //     .then(result => {
+        res.send(result);
+        console.log("******* Result for getUserByID is ", result);
 
-  //       user_email = result.email;
-
-  //       //res.send(result);
-
-  //       //console.log('result is: ', result);
-  //       // get all resources from the user
-  //       return databaseHelper.getAllResourcesMatchingSearch(searchInput);
-
-  //       // send the templateVars with all the resources inside ejs template.
-
-  //     }).then(result => {
-
-  //       console.log("Result is: ", result);
-  //       //let avgRating = result;
-  //       allResources = result;
-
-  //       //resourceDate = allResources.created_at;
+        user_email = result.email;
 
 
-  //       let templateVars = {
-  //         user_email: user_email,
-  //         allResources: allResources
+        // return databaseHelper.addNewReviewIsRating(user_id, resource_id, ratingValur)
+        // return databaseHelper.getSpecificResourceByID(resourceID)
 
-  //       };
 
-  //       res.render("main_resource", templateVars);
+      })
 
-  //     });
-  // } else {
-  //   res.send("Please login or register to view requested page");
-  //   console.log("Please login or register to view requested page");
   }
 
 });
+
+///////// Similar functions for add / update rating ////////
+
+/*const addNewReviewIsRating = function (user_id, resource_id, rating) {
+
+  return pool.query(`
+
+  INSERT INTO resource_reviews (user_id, resource_id, rating)
+  VALUES ($1, $2, $3)
+  RETURNING *;`, [user_id, resource_id, rating])
+    .then(res => res.rows[0])
+    .catch(err => console.log(err));
+}
+
+const setRatingValue = function (user_ID, resource_ID, ratingValue ) {
+
+  return pool.query(`
+
+    UPDATE resource_reviews
+    SET rating = $3
+    WHERE user_id = $1 AND resource_id = $2
+    RETURNING *;
+    `, [user_ID, resource_ID, ratingValue])
+  .then(res => res.rows)
+  .catch(err => console.log(err));
+}
+*/
+
+
 
 
 

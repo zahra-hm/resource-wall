@@ -425,6 +425,21 @@ const setIsLikeValue = function (user_ID, resource_ID, isLikeValue ) {
   .catch(err => console.log(err));
 }
 
+
+const setRatingValue = function (user_ID, resource_ID, ratingValue ) {
+
+  return pool.query(`
+
+    UPDATE resource_reviews
+    SET rating = $3
+    WHERE user_id = $1 AND resource_id = $2
+    RETURNING *;
+    `, [user_ID, resource_ID, ratingValue])
+  .then(res => res.rows)
+  .catch(err => console.log(err));
+}
+
+
 // getResourceReviewsByResourceID
 
 const getResourceReviewsByResourceID = function (resource_id) {
@@ -466,7 +481,7 @@ const updateUserName = function (user_ID, username) {
   .catch(err => console.log(err));
 }
 
-module.exports = {getAllResourcesMatchingSearch , getAllInfoSpecificResource, getAllResourcesAvgRating, addNewComment, getResourceReviewsByResourceID,getResourceReviewsByOwnerID, addNewReviewIsRating, addNewResources, getCommentsForSpecificResource, getSpecificResourceByID,getUserByEmail, addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName};
+module.exports = {setRatingValue, getAllResourcesMatchingSearch , getAllInfoSpecificResource, getAllResourcesAvgRating, addNewComment, getResourceReviewsByResourceID,getResourceReviewsByOwnerID, addNewReviewIsRating, addNewResources, getCommentsForSpecificResource, getSpecificResourceByID,getUserByEmail, addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName};
 
 
 

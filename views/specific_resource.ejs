@@ -34,13 +34,13 @@
         <p class="resource-data"><%= resource_info.description %></p>
 
         <footer class="footer">
-
           <div class="enter-rating">
             <form action="/resources/:resource_id/rate" method="POST"></form>
             <label>Rating:</label>
-            <input class="rating-box" type="text" name="rating" placeholder="">
+            <input class="rating-box" type="text" name="rating" placeholder="rate 1-5">
             <button type="submit rating" class="btn-addRating">Submit</button>
           </div>
+
 
           <span class="date"><b>Date Created:</b><%= resource_info.created_at%></span>
 
