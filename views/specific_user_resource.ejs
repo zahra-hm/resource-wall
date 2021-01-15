@@ -1,0 +1,83 @@
+<head>
+	<title>Bootstrap 4 Drop Down Menu</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+<!------ Include the above in your HEAD tag ---------->
+
+<!-- App CSS -->
+
+
+<link rel="stylesheet" href="styles/main_resource.css" type="text/css" />
+
+<body>
+    <header>
+      <%- include('partials/_header') %>
+    </header>
+    <div id="login">
+      <h3 class="text-center text-danger pt-5">RESOURCE WALL</h3>
+      <h3 class="text-center text-danger pt-5">MY RESOURCES</h3>
+      <form id="new-resource" action="/resources/search" method="POST">
+
+        <div class="search-area">
+          <div class="input-box">
+            <input class="textbox" type="text" name= "searchBar" id="resouce-text" placeholder="Search..." ></input>
+            <button type="submit" class="btn btn-warning">Search</button>
+          </div>
+        </div>
+
+      </form>
+      <h2>RESOURCES YOU CREATED</h2>
+      <div class="main-resource">
+
+        <% for(let x = 0; x < allUserResources.length ; x++){ %>
+
+          <article class="resource" style ="padding: 20px">
+            <div class="info">
+              <div class="title-resource">
+                <a class = "resourceTitleTag" href=<%= allUserResources[x].url %>> <%= allUserResources[x].title%></a>
+                <a class="btn btn-outline-success" href="/resources/<%= allUserResources[x].id %>">View Resource!</a>
+              </div>
+              <div class="avg-rating">
+                <span class="name"><b>Creator: </b><%= allUserResources[x].username %><span>
+                <span class="rating"><b>  Avg Rating: </b><%= allUserResources[x].avg%></span>
+              </div>
+            </div>
+            <p class="resource-data"><%= allUserResources[x].description %></p>
+            <footer class="footer">
+              <span class="date"><b>Date Created:</b><%= allUserResources[x].created_at%></span>
+            </footer>
+          </article>
+        <% } %>
+    </div>
+    <h2>RESOURCES YOU LIKED</h2>
+    <div class="main-resource">
+
+      <% for(let x = 0; x < allUserLikedResources.length ; x++){ %>
+
+        <article class="resource" style ="padding: 20px">
+          <div class="info">
+            <div class="title-resource">
+              <a class = "resourceTitleTag" href=<%= allUserLikedResources[x].url %>> <%= allUserLikedResources[x].title%></a>
+              <a class="btn btn-outline-success" href="/resources/<%= allUserLikedResources[x].id %>">View Resource!</a>
+            </div>
+            <div class="avg-rating">
+              <span class="name"><b>Creator: </b><%= allUserLikedResources[x].username %><span>
+              <span class="rating"><b>  Avg Rating: </b><%= allUserLikedResources[x].rating%></span>
+            </div>
+          </div>
+          <p class="resource-data"><%= allUserLikedResources[x].description %></p>
+          <footer class="footer">
+            <span class="date"><b>Date Created:</b><%= allUserLikedResources[x].created_at%></span>
+          </footer>
+        </article>
+      <% } %>
+  </div>
+
+    </div>
+  </div>
+</body>
+

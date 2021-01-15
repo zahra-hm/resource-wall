@@ -162,18 +162,19 @@ const getUserResourcesByUserID = function (userID) {
 // Return resources belong to the user and filtered by isLike = true (order by newest to oldest)
 
 const getResourceReviewsByUserID = function (userID) {
-
+  console.log("INSIDE getResourceReviewsBy...");
   return pool.query(`
-
-      SELECT resources.*, resource_reviews.isLike, resource_reviews.rating
-      FROM resources
-      JOIN resource_reviews ON resource_reviews.user_id = resources.owner_id
-      WHERE resources.owner_id = $1 AND resource_reviews.isLike = true
-      ORDER BY created_at DESC;`, [userID])
+    SELECT Derived_Table.*, AVG(resource_reviews.rating) AS Avg_Rating FROM (SELECT resources.*
+    FROM RESOURCES JOIN resource_reviews ON resources.id = resource_reviews.resource_id
+    WHERE resource_reviews.user_id = $1 AND resource_reviews.isLike = true) AS Derived_Table
+    JOIN resource_reviews ON
+        Derived_Table.id = resource_reviews.resource_id GROUP BY Derived_Table.id, Derived_Table.owner_id, Derived_Table.category_id, Derived_Table.title, Derived_Table.url, Derived_Table.description, Derived_Table.created_at;
+     `, [userID])
     .then(res => {
+      console.log("res.rows is, ", res.rows);
       if (res.rows[0]) {
 
-        // console.log("res.rows is, ", res.rows);
+       // console.log("res.rows is, ", res.rows);
         return res.rows;
 
       } else {
@@ -186,6 +187,26 @@ const getResourceReviewsByUserID = function (userID) {
 
 }
 
+/*  // Gives back all liked resources by user.
+  SELECT resources.* FROM RESOURCES
+JOIN resource_reviews ON resources.id = resource_reviews.resource_id
+WHERE resource_reviews.user_id = 3 AND resource_reviews.isLike = true;
+
+*/
+
+/*  // Gives back rating average for group of resources.
+SELECT resources.id, AVG(resource_reviews.rating)
+FROM resources
+JOIN resource_reviews ON resources.id = resource_reviews.resource_id
+WHERE resources.id IN (6,11)
+GROUP BY resources.id;
+
+*/
+/*
+  SELECT Derived_Table.*, AVG(resource_reviews.rating) AS Avg_Rating FROM (SELECT resources.* FROM RESOURCES JOIN resource_reviews ON resources.id = resource_reviews.resource_id WHERE resource_reviews.user_id = 3 AND resource_reviews.isLike = true) AS Derived_Table JOIN resource_reviews ON Derived_Table.id = resource_reviews.resource_id GROUP BY Derived_Table.id, Derived_Table.owner_id, Derived_Table.category_id, Derived_Table.title, Derived_Table.url, Derived_Table.description, Derived_Table.created_at;
+
+
+*/
 
 // addNewUser
 
