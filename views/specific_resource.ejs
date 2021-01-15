@@ -32,20 +32,24 @@
               <span class="rating"><b> Avg Rating: </b><%= resource_info.avg%></span>
         </div>
         <p class="resource-data"><%= resource_info.description %></p>
+
         <footer class="footer">
+
           <div class="enter-rating">
-            <form action="/resources/:resource_id" method="POST"></form>
+            <form action="/resources/:resource_id/rate" method="POST"></form>
             <label>Rating:</label>
             <input class="rating-box" type="text" name="rating" placeholder="">
-            <button type="submit" class="btn-addRating">Submit</button>
+            <button type="submit rating" class="btn-addRating">Submit</button>
           </div>
 
           <span class="date"><b>Date Created:</b><%= resource_info.created_at%></span>
 
           <div class="is-like">
-            <form action="/resources/:resource_id" method="POST"></form>
+            <form action="/resources/:resource_id/Like" method="POST"></form>
             <!-- Has to change   i class="fas fa-thumbs-up"    to a button -->
             <button type="submit" class="btn-like">Like<i class="fas fa-thumbs-up"></i></button>
+
+
 
           </div>
 

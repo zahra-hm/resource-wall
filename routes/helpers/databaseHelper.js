@@ -134,6 +134,25 @@ const getAllInfoSpecificResource = function (resource_id) {
 
 };
 
+// const getAllInfoSpecificResourceIncludeIsLike = function (resource_id) {
+
+//   return pool.query(`
+
+//   SELECT users.username, resources.*, ROUND(AVG(resource_reviews.rating),1) AS avg, resource_reviews.isLike
+//   FROM resources
+//   JOIN users ON users.id = resources.owner_id
+//   JOIN resource_reviews ON resource_reviews.resource_id = resources.id
+//   WHERE resources.id = $1
+//   GROUP BY resources.id, users.username;`, [resource_id])
+//     .then(res => {
+
+//       // console.log("res.rows is, ", res.rows);
+//       return res.rows[0];
+//     })
+//     .catch(err => console.log(err));
+
+// };
+
 const getUserResourcesByUserID = function (userID) {
 
   return pool.query(`
