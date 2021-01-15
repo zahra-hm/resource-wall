@@ -31,7 +31,8 @@ router.get("/user", (req, res) => {
       let username = result.username;
 
       let templateVars = {
-        user_id: userID, user_email: user_email, username: username
+        user_id: userID, user_email: user_email, username: username,
+        userId: userID
       };
       res.render("user_profile", templateVars)
 

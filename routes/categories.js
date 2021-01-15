@@ -53,8 +53,8 @@ router.get("/:category_id/resources", (req, res) => {
 
       let templateVars = {
         user_email: user_email,
-        allResources: allResources
-
+        allResources: allResources,
+        userId: user_id
       };
 
       res.render("specific_category_resource", templateVars);

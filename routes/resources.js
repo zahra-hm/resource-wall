@@ -45,7 +45,8 @@ router.get("/", (req, res) => {
 
       let templateVars = {
         user_email: user_email,
-        allResources: allResources
+        allResources: allResources,
+        userId: user_id
 
       };
 
@@ -97,7 +98,8 @@ router.post("/search", (req, res) => {
 
       let templateVars = {
         user_email: user_email,
-        allResources: allResources
+        allResources: allResources,
+        userId: user_id
 
       };
 
@@ -129,7 +131,11 @@ router.get("/new", (req, res) => {
 
         user_email = result.email;
 
-        const templateVars = { user_email: user_email };
+        const templateVars = {
+          user_email: user_email,
+          userId: user_id
+
+        };
         res.render("new_resource", templateVars);
     });
 
@@ -234,7 +240,8 @@ router.get("/:resource_id", (req, res) => {
           resource_id,
           resource_info,
           comments_info,
-          likeState
+          likeState,
+          userId: user_id
         }
 
         res.render("specific_resource", templateVars);
