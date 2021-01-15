@@ -27,7 +27,7 @@ CREATE TABLE users (
     INSERT INTO users (
     username, email, password, image_url)
     VALUES (
-    'DaleColeman', 'michaelgray@mail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.','https://icon-library.net/images/generic-user-icon/generic-user-icon-10.jpg');
+    'DaleColeman', 'michaelgray@mail.com', 'password','https://icon-library.net/images/generic-user-icon/generic-user-icon-10.jpg');
     INSERT INTO users (
     username, email, password, image_url)
     VALUES (

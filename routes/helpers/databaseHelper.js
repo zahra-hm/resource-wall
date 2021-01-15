@@ -450,7 +450,7 @@ const getResourceReviewsByResourceID = function (resource_id) {
   FROM resource_reviews
   WHERE resource_reviews.resource_id = $1
   GROUP BY resource_reviews.resource_id;`, [resource_id])
-    .then(res => res.rows[0])
+    .then(res => res.rows)
     .catch(err => console.log(err));
 
 }

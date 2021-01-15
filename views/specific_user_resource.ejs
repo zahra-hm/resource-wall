@@ -41,10 +41,6 @@
                 <a class = "resourceTitleTag" href=<%= allUserResources[x].url %>> <%= allUserResources[x].title%></a>
                 <a class="btn btn-outline-success" href="/resources/<%= allUserResources[x].id %>">View Resource!</a>
               </div>
-              <div class="avg-rating">
-                <span class="name"><b>Creator: </b><%= allUserResources[x].username %><span>
-                <span class="rating"><b>  Avg Rating: </b><%= allUserResources[x].avg%></span>
-              </div>
             </div>
             <p class="resource-data"><%= allUserResources[x].description %></p>
             <footer class="footer">
@@ -63,10 +59,6 @@
             <div class="title-resource">
               <a class = "resourceTitleTag" href=<%= allUserLikedResources[x].url %>> <%= allUserLikedResources[x].title%></a>
               <a class="btn btn-outline-success" href="/resources/<%= allUserLikedResources[x].id %>">View Resource!</a>
-            </div>
-            <div class="avg-rating">
-              <span class="name"><b>Creator: </b><%= allUserLikedResources[x].username %><span>
-              <span class="rating"><b>  Avg Rating: </b><%= allUserLikedResources[x].rating%></span>
             </div>
           </div>
           <p class="resource-data"><%= allUserLikedResources[x].description %></p>

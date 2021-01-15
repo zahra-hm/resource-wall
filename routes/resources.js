@@ -256,33 +256,6 @@ router.get("/:resource_id", (req, res) => {
   }
 });
 
-// POST  /resources/:resource_id/like
-// Set isLike to true/false on specific resource page
-
-// router.post("/like", (req, res) => {
-
-//   let resource_id = req.params.resource_id;
-//   let resource_info;
-//   let isLike;
-
-
-//   const user_id = req.session.user_id;
-
-//   if (user_id) {
-
-//     // databaseHelper.getIsLikeValue(user_id, resource_id)
-//     //   .then(result => {
-
-//     //     console.log("Result for getIsLikeValue is ", result);
-
-//     //     isLike_info = result;
-
-//     //     return databaseHelper.setIsLikeValue
-//     //   })
-//   }
-
-// });
-
 
 router.post("/rate", (req, res) => {
 
@@ -337,6 +310,50 @@ const setRatingValue = function (user_ID, resource_ID, ratingValue ) {
 
   return pool.query(`
 
+=======
+  // check if user is logged in and if yes, otherwise redirect to index page with message.
+  const user_id = req.session.user_id;
+
+  //
+  if (user_id) {
+
+    databaseHelper.getUserByID(user_id)
+      .then(result => {
+
+        res.send(result);
+        console.log("******* Result for getUserByID is ", result);
+
+        user_email = result.email;
+
+
+        // return databaseHelper.addNewReviewIsRating(user_id, resource_id, ratingValur)
+        // return databaseHelper.getSpecificResourceByID(resourceID)
+
+
+      })
+
+  }
+
+});
+
+///////// Similar functions for add / update rating ////////
+
+/*const addNewReviewIsRating = function (user_id, resource_id, rating) {
+
+  return pool.query(`
+
+  INSERT INTO resource_reviews (user_id, resource_id, rating)
+  VALUES ($1, $2, $3)
+  RETURNING *;`, [user_id, resource_id, rating])
+    .then(res => res.rows[0])
+    .catch(err => console.log(err));
+}
+
+const setRatingValue = function (user_ID, resource_ID, ratingValue ) {
+
+  return pool.query(`
+
+>>>>>>> master
     UPDATE resource_reviews
     SET rating = $3
     WHERE user_id = $1 AND resource_id = $2
