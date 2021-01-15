@@ -361,6 +361,22 @@ const addNewReviewIsRating = function (user_id, resource_id, rating) {
     .catch(err => console.log(err));
 }
 
+// addNewReviewIsLike
+
+const addNewReviewIsLike = function (user_id, resource_id, isLike) {
+
+  return pool.query(`
+
+  INSERT INTO resource_reviews (user_id, resource_id, isLike)
+  VALUES ($1, $2, $3);`, [user_id, resource_id, isLike])
+    .then(res => {
+      console.log('THIS IS RES.ROWS:  ')
+      console.log(res.rows);
+      return res.rows[0];
+    })
+    .catch(err => console.log(err));
+}
+
 // getResourceReviewsByUserID
 // Return resources belong to the owner and filtered by isLike = true (order by newest to oldest)
 
@@ -466,7 +482,7 @@ const updateUserName = function (user_ID, username) {
   .catch(err => console.log(err));
 }
 
-module.exports = {getAllResourcesMatchingSearch , getAllInfoSpecificResource, getAllResourcesAvgRating, addNewComment, getResourceReviewsByResourceID,getResourceReviewsByOwnerID, addNewReviewIsRating, addNewResources, getCommentsForSpecificResource, getSpecificResourceByID,getUserByEmail, addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName};
+module.exports = {getAllResourcesMatchingSearch , getAllInfoSpecificResource, getAllResourcesAvgRating, addNewComment, getResourceReviewsByResourceID,getResourceReviewsByOwnerID, addNewReviewIsRating, addNewReviewIsLike, addNewResources, getCommentsForSpecificResource, getSpecificResourceByID,getUserByEmail, addNewUser, getUserByID, getAllResources, getUserResourcesByUserID, getResourceReviewsByUserID, getResourcesByCategory, getSpecificCategoryInfo, getIsLikeValue , setIsLikeValue, addNewReviewsIsLike, updateUserName};
 
 
 

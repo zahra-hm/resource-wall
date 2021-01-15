@@ -274,23 +274,14 @@ router.get("/:resource_id/like", (req, res) => {
   let isLiked;
 
 
-  // const templateVars = { liked-value: }
-
-  // setIsLikeValue(user_ID, resource_ID, isLikeValue)
-
-  // res.render("specific_resource", templateVars)
-
   const user_id = req.session.user_id;
 
   if (user_id) {
 
     databaseHelper.getIsLikeValue(4, 10)
     .then(result => {
-
       if (result.length === 0) {
-        console.log('RESULT IS: ');
-        console.log(result)
-        res.send("BELLOOO");
+        res.send('Unhandled user case... Developers in training :/')
       } else {
         isLiked = result[0].islike;
         if (isLiked) {
@@ -304,19 +295,6 @@ router.get("/:resource_id/like", (req, res) => {
       res.redirect(`/resources/${resource_id}`);
 
     })
-
-
-
-    // databaseHelper.getIsLikeValue(user_id, resource_id)
-    //   .then(result => {
-
-    //     console.log("Result for getIsLikeValue is ", result);
-
-    //     isLike_info = result;
-
-    //     return databaseHelper.setIsLikeValue
-    //   })
-
 
   } else {
     res.send("Must log in to view!!");
@@ -386,10 +364,37 @@ router.post("/rate", (req, res) => {
 // POST  /resources/comments/new
 // Post new comment on specific resource page
 
-router.post("/resources/comments/new", (req, res) => {
+// router.post("/resources/comments/new", (req, res) => {
 
+// });
+
+// POST  /resources/comments/new
+// Post new comment on specific resource page
+
+router.post("/comments/:resource_id/new", (req, res) => {
+
+  let resource_id = req.params.resource_id;
+  let comment = req.body.newComment;
+  let date = new Date();
+
+  const user_id = req.session.user_id;
+
+  if (user_id) {
+
+    databaseHelper.getUserByID(user_id)
+      .then(result => {
+
+        return databaseHelper.addNewComment(user_id, resource_id, date, comment);
+
+      })
+      .then(result => {
+
+        res.redirect(`/resources/${resource_id}`);
+
+      })
+      .catch(error => console.log(error));
+
+  }
 });
-
-
 
 module.exports = router;
